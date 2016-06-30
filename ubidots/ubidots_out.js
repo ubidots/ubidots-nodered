@@ -1,0 +1,22 @@
+module.exports = function(RED) {
+	var mqtt = require("mqtt");
+	function postUbidots(label_data_source, values, auth_token) {
+		var client  = mqtt.connect('mqtt://things.ubidots.com', {username:auth_token, password:""});
+		client.publish("/v1.6/devices/" + label_data_source + "", values, {'qos': 1, 'retain': false},
+                                                    function (error, response) {
+                                                        client.end(true, function () {
+                                                        });
+                                                    });
+	}
+
+    function UbidotsNode(n) {
+        RED.nodes.createNode(this, n);
+        this.on("input", function(msg) {
+            var label_data_source = msg.label_data_source || n.label_data_source;
+            var values = msg.payload;
+            var auth_token = msg.auth_token || n.auth_token;
+            postUbidots(label_data_source, values, auth_token);
+        });
+    }
+	RED.nodes.registerType("ubidots_out", UbidotsNode);
+};

@@ -1,0 +1,15 @@
+*#*
+*.pyc
+*~
+*.db
+database.sqlite
+local_settings.py
+node_modules
+vendor
+/src/ubidots/ubidots/public/
+/src/ubidots/ubidots/client/general/node_modules
+.DS_Store
+.eslintrc.js
+.idea
+*debug.log
+.ropeproject

@@ -1,0 +1,54 @@
+<script type="text/x-red" data-template-name="ubidots">
+    <div class="form-row">
+        <label for="node-input-auth_token"><i class="icon-lock"></i> <span data-i18n="ubidots.token.label"></span></label>
+        <input type="text" id="node-input-auth_token" data-i18n="[placeholder]ubidots.token.placeholder">
+    </div>
+    <div class="form-row">
+        <label for="node-input-variable_id"><i class="icon-tag"></i> <span data-i18n="ubidots.varid"></span></label>
+        <input type="text" id="node-input-variable_id" data-i18n="[placeholder]ubidots.varid">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
+        <input type="text" id="node-input-name"  data-i18n="[placeholder]ubidots.name">
+    </div>
+</script>
+
+
+<script type="text/x-red" data-help-name="ubidots">
+	<p><font size="-2">Posts data on Ubidots</font></p>
+	<h2>Ubidots</h2>
+    <font size="-1"><p>UBIDOTS provides a platform for makers, developers and companies to easily capture sensor data and turn it into useful information.</p>
+	<p>Get a free account on ubidots.com</p></font>
+	<p><b>Node description :</b><br/><font size="-1">Posts the payload on a Ubidots account.</font></p>
+	<p><b>How to :</b><font size="-1">
+	<br/>-auth_token : API Token availabe on your profile settings.
+	<br/>-variable_id : id of a variable of a source.
+	</font></p>
+	
+	<p><b>Time : </b></p>
+    <font size="-1">A time can be specified in <b>msg.timestamp</b>. This time has to be a timestamp.</font>
+
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('ubidots', {
+		category: 'storage-output',
+		color : "#5996F7",
+		defaults : {
+			name : {value : ""},
+			auth_token : {value : ""},
+			variable_id : {value : ""}
+		},
+		inputs : 1,
+		outputs : 0,
+
+		icon : "ubidots.png",
+		label : function() {
+			return this.name || this.to || "ubidots";
+		},
+		labelStyle : function() {
+			return this.name ? "node_label_italic" : "";
+		}
+	});
+</script>

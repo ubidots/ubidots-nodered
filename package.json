@@ -1,0 +1,16 @@
+{
+  "name": "node-ubidots",
+  "version": "1.0.0",
+  "description": "NodeRED node to post data on Ubidots.",
+  "node-red": {
+    "nodes": {
+	"ubidots": "ubidots/ubidots.js",
+	"ubidots_in": "ubidots/ubidots_in.js",
+	"ubidots_out": "ubidots/ubidots_out.js"
+    }
+  },
+  "keywords": [
+    "node-red",
+    "ubidots"
+  ]
+}

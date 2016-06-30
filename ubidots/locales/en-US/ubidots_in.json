@@ -1,0 +1,12 @@
+{
+    "ubidots": {
+        "token": {
+            "label": "Auth token 1",
+            "placeholder": "Token author 1"
+        },
+        "label_data_source": {"label": "Data Source", "placeholder": "Data source label"},
+	"label_variable": {"label": "Variable", "placeholder": "Variable label"},
+        "varid": "Variable ID 1",
+        "name": "Name 1"
+    }
+}
