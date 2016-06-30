@@ -1,6 +1,5 @@
 module.exports = function (RED) {
     var mqtt = require('mqtt');
-
     function UbidotsNode(n) {
         RED.nodes.createNode(this, n);
         var x = this;
@@ -9,6 +8,21 @@ module.exports = function (RED) {
             var client = mqtt.connect('mqtt://things.ubidots.com', {username: n.token, password: ""});
             client.on("error", function () {
                 x.status({fill: "red", shape: "ring", text: "disconnected"});
+            });
+            client.on("reconnect", function () {
+                x.status({fill: "green", shape: "dot", text: "connected"});
+                var topic = "/v1.6/devices/" + n.label_data_source + "/" + n.label_variable;
+                var options = {};
+                options[topic] = 1;
+                client.subscribe(options, function (err, granted) {
+                    try {
+                        client.on('message', function (topic, message, packet) {
+                            x.emit("input", {payload: JSON.parse(message.toString())});
+                        });
+                    } catch (e) {
+                        x.status({fill: "red", shape: "ring", text: "disconnected"});
+                    }
+                });
             });
             client.on("connect", function () {
                 x.status({fill: "green", shape: "dot", text: "connected"});
