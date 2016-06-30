@@ -4,7 +4,7 @@ module.exports = function(RED) {
     function UbidotsNode(n) {
         RED.nodes.createNode(this, n);
 	var x = this;
-        var client  = mqtt.connect('mqtt://things.ubidots.com', {username:'NRmyIOPJGkmXOc0Ah93PA2SylvNysZ', password:""});
+        var client  = mqtt.connect('mqtt://things.ubidots.com', {username:n.token, password:""});
 	var topic = "/v1.6/devices/"+n.label_data_source+"/"+n.label_variable;
 	var options = {};
 	options[topic] = 1;

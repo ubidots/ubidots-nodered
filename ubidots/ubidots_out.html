@@ -1,14 +1,7 @@
 <script type="text/x-red" data-template-name="ubidots_out">
-<div class="form-row">
-	<label for="node-input-protocol"><i class="fa fa-tasks"></i> <span>Protocol</span></label>
-        <select type="text" id="node-input-protocol" style="width:72%;">
-        <option value="HTTP">HTTP</option>
-        <option value="MQTT">MQTT</option>
-        </select>
-</div>
     <div class="form-row">
-        <label for="node-input-auth_token"><i class="icon-lock"></i> <span data-i18n="ubidots.token.label"></span></label>
-        <input type="text" id="node-input-auth_token" data-i18n="[placeholder]ubidots.token.placeholder">
+        <label for="node-input-token"><i class="icon-lock"></i> <span data-i18n="ubidots.token.label"></span></label>
+        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder">
     </div>
     <div class="form-row">
         <label for="node-input-labe_data_source"><i class="icon-tag"></i> <span data-i18n="ubidots.label_data_source.label"></span></label>
@@ -30,7 +23,7 @@
 	<p>Get a free account on ubidots.com</p></font>
 	<p><b>Node description :</b><br/><font size="-1">Posts the payload on a Ubidots account.</font></p>
 	<p><b>How to :</b><font size="-1">
-	<br/>-auth_token : API Token availabe on your profile settings.
+	<br/>-token : API Token availabe on your profile settings.
 	<br/>-label_data_source : label of the data source.
 	</font></p>
 
@@ -42,7 +35,7 @@
 		color : "#5996F7",
 		defaults : {
 			name : {value : ""},
-			auth_token : {value : ""},
+			token : {value : ""},
 			label_data_source : {value : ""}
 		},
 		inputs : 1,
