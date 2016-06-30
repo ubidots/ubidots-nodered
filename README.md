@@ -1,4 +1,4 @@
-# thethingbox-node-ubidots
+# Ubidots Nodes for Node Red
 
 NodeRED node to use Ubidots service.
 
