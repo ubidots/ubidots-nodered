@@ -1,12 +1,12 @@
 {
     "ubidots": {
         "token": {
-            "label": "Auth token",
-            "placeholder": "Token auteur"
+            "label": "Token",
+            "placeholder": "Authentication Token"
         },
-        "label_data_source": {"label": "Data Source", "placeholder": "Data source label"},
+        "label_data_source": {"label": "Device", "placeholder": "Data source label"},
 	"label_variable": {"label": "Variable", "placeholder": "Variable label"},
         "varid": "Variable ID",
-        "name": "Nom"
+        "name": "Name"
     }
 }

@@ -1,16 +1,15 @@
 <script type="text/x-red" data-template-name="ubidots_out">
     <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name">
+    </div>
+    <div class="form-row">
         <label for="node-input-token"><i class="icon-lock"></i> <span data-i18n="ubidots.token.label"></span></label>
         <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder">
     </div>
     <div class="form-row">
         <label for="node-input-labe_data_source"><i class="icon-tag"></i> <span data-i18n="ubidots.label_data_source.label"></span></label>
         <input type="text" id="node-input-label_data_source" data-i18n="[placeholder]ubidots.label_data_source.placeholder">
-    </div>
-    <br/>
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name">
     </div>
 </script>
 
@@ -21,10 +20,10 @@
 	<h2>Ubidots</h2>
     <font size="-1"><p>UBIDOTS provides a platform for makers, developers and companies to easily capture sensor data and turn it into useful information.</p>
 	<p>Get a free account on ubidots.com</p></font>
-	<p><b>Node description :</b><br/><font size="-1">Posts the payload on a Ubidots account.</font></p>
+	<p><b>Node description :</b><br/><font size="-1">Posts the payload on a Ubidots device with the variables specified in the payload.</font></p>
 	<p><b>How to :</b><font size="-1">
-	<br/>-token : API Token availabe on your profile settings.
-	<br/>-label_data_source : label of the data source.
+	<br/>-Token : API Token availabe on your profile settings.
+	<br/>-Device: label of the data source.
 	</font></p>
 
 </script>
