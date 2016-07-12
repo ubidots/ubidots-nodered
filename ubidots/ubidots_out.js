@@ -16,6 +16,9 @@ module.exports = function (RED) {
         this.on("input", function (msg) {
             var label_data_source = msg.label_data_source || n.label_data_source;
             var values = msg.payload;
+			if(typeof(values) === 'object'){
+				values = JSON.stringify(values);
+			}
             var token = msg.token || n.token;
             postUbidots(label_data_source, values, token);
         });
