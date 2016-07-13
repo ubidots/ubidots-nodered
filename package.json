@@ -18,8 +18,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ubidots/ubidots-nodered"
-  },
-  "dependencies": {
-    "mqtt": "^1.12.0"
-   }
+  }
 }
