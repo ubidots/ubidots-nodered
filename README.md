@@ -2,10 +2,13 @@
 
 NodeRED node to use Ubidots service.
 
-To install run: 
+To install from package.json run: 
 
 	npm install
 
+To install from npm repository:
+
+	npm install ubidots-nodered
 
 
 
