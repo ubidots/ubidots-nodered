@@ -4,7 +4,6 @@
   "description": "NodeRED node to post data on Ubidots using MQTT.",
   "node-red": {
     "nodes": {
-      "ubidots": "ubidots/ubidots.js",
       "ubidots_in": "ubidots/ubidots_in.js",
       "ubidots_out": "ubidots/ubidots_out.js"
     }
@@ -18,5 +17,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ubidots/ubidots-nodered"
-  }
+  },
+  "dependencies": {
+    "mqtt": "^1.12.0"
+   }
 }
