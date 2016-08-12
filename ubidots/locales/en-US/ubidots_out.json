@@ -4,8 +4,8 @@
             "label": "Token",
             "placeholder": "Authentication Token"
         },
-        "label_data_source": {"label": "Device", "placeholder": "Data source label"},
-	"label_variable": {"label": "Variable", "placeholder": "Variable label"},
+        "label_data_source": {"label": "Device Label", "placeholder": "Device label"},
+	"label_variable": {"label": "Variable Label", "placeholder": "Variable label"},
         "varid": "Variable ID",
         "name": "Name"
     }
