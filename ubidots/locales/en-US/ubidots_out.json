@@ -7,6 +7,7 @@
         "label_data_source": {"label": "Device Label", "placeholder": "Device label"},
 	"label_variable": {"label": "Variable Label", "placeholder": "Variable label"},
         "varid": "Variable ID",
-        "name": "Name"
+        "name": "Name",
+        "protocol": "Protocol"
     }
 }
