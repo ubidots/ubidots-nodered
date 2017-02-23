@@ -12,6 +12,7 @@
   "keywords": [
     "node-red",
     "ubidots",
+    "iot",
     "mqtt"
   ],
   "repository": {
