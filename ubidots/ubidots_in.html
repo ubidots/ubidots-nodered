@@ -1,5 +1,4 @@
 <script type="text/x-red" data-template-name="ubidots_in">
-	
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name">
@@ -20,38 +19,38 @@
 
 
 <script type="text/x-red" data-help-name="ubidots_in">
-		<p><font size="-2">This node subscribes to value updates from ubidots.</font></p>
-	<h2>Ubidots</h2>
+        <p><font size="-2">This node subscribes to value updates from ubidots.</font></p>
+    <h2>Ubidots</h2>
     <font size="-1"><p>Ubidots is an IoT platform where you can store and retrieve millions of sensor readings, create live dashboards to analyze your data, trigger SMS/Email/Webhook alerts, and more.</p>
-	<p>You can get a free account at ubidots.com</p></font>
-	<p><b>Node description :</b><br/><font size="-1">This node subscribes to value updates from ubidots.</font></p>
-	<p><b>How to :</b><font size="-1">
-	<br/>-Token: A Ubidots token, which can be found or created in your profile settings.
-	<br/>-Device: A unique label to identify your device.
-	<br/>-Variable: A unique label to identify your variable.
-	</font></p>
+    <p>You can get a free account at ubidots.com</p></font>
+    <p><b>Node description :</b><br/><font size="-1">This node subscribes to value updates from ubidots.</font></p>
+    <p><b>How to :</b><font size="-1">
+    <br/>-Token: A Ubidots token, which can be found or created in your profile settings.
+    <br/>-Device: A unique label to identify your device.
+    <br/>-Variable: A unique label to identify your variable.
+    </font></p>
 
 </script>
 
 <script type="text/javascript">
-	RED.nodes.registerType('ubidots_in', {
-		category: 'input',
-		color : "#5996F7",
-		defaults : {
-			name : {value : ""},
-			token : {value : ""},
-			label_data_source : {value : ""},
-			label_variable : {value: ""}
-		},
-		inputs : 0,
-		outputs : 1,
+    RED.nodes.registerType('ubidots_in', {
+        category: 'input',
+        color : "#5996F7",
+        defaults : {
+            name : {value : ""},
+            token : {value : ""},
+            label_data_source : {value : ""},
+            label_variable : {value: ""}
+        },
+        inputs : 0,
+        outputs : 1,
 
-		icon : "ubidots.png",
-		label : function() {
-			return this.name || this.to || "ubidots input";
-		},
-		labelStyle : function() {
-			return this.name ? "node_label_italic" : "";
-		}
-	});
+        icon : "ubidots.png",
+        label : function() {
+            return this.name || this.to || "ubidots input";
+        },
+        labelStyle : function() {
+            return this.name ? "node_label_italic" : "";
+        }
+    });
 </script>

@@ -1,12 +1,5 @@
 <script type="text/x-red" data-template-name="ubidots_out">
     <div class="form-row">
-        <label for="node-input-protocol"><i class="icon-tag"></i> <span data-i18n="ubidots.protocol"></span></label>
-        <select id="node-input-protocol">
-            <option value="mqtt">MQTT</option>
-            <option value="http">HTTP</option>
-        </select>
-    </div>
-    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name">
     </div>
@@ -23,41 +16,40 @@
 
 
 <script type="text/x-red" data-help-name="ubidots_out">
-	<p><font size="-2">This node sends data to Ubidots</font></p>
-	<h2>Ubidots</h2>
+    <p><font size="-2">This node sends data to Ubidots</font></p>
+    <h2>Ubidots</h2>
     <font size="-1"><p>Ubidots is an IoT platform where you can store and retrieve millions of sensor readings, create live dashboards to analyze your data, trigger SMS/Email/Webhook alerts, and more.</p>
-	<p>You can get a free account at ubidots.com<</p></font>
-	<p><b>Node description :</b><br/><font size="-1">This node sends data to a device in Ubidots, updating the variables specified in the payload.</font></p>
-	<p><b>How to :</b><font size="-1">
+    <p>You can get a free account at ubidots.com<</p></font>
+    <p><b>Node description :</b><br/><font size="-1">This node sends data to a device in Ubidots, updating the variables specified in the payload.</font></p>
+    <p><b>How to :</b><font size="-1">
         <br/>-Protocol : The protocol used to send the values of the variable, it can be HTTP or MQTT.
-	<br/>-Token : A Ubidots token, which can be found or created in your profile settings.
-	<br/>-Device: A unique label to identify your device. A data source will be created automatically in your account if none exists with this label.
-	<br/><br/>
-	This node receives as payload a JSON document where every key corresponds to the label of the variable
-	and the value is the value of the variable.
-	</font></p>
+    <br/>-Token : A Ubidots token, which can be found or created in your profile settings.
+    <br/>-Device: A unique label to identify your device. A data source will be created automatically in your account if none exists with this label.
+    <br/><br/>
+    This node receives as payload a JSON document where every key corresponds to the label of the variable
+    and the value is the value of the variable.
+    </font></p>
 
 </script>
 
 <script type="text/javascript">
-	RED.nodes.registerType('ubidots_out', {
-		category: 'storage-output',
-		color : "#5996F7",
-		defaults : {
-			name : {value : ""},
-			token : {value : ""},
-			label_data_source : {value : ""},
-                        protocol: {value: ""}
-		},
-		inputs : 1,
-		outputs : 0,
-
-		icon : "ubidots.png",
-		label : function() {
-			return this.name || this.to || "ubidots out";
-		},
-		labelStyle : function() {
-			return this.name ? "node_label_italic" : "";
-		}
-	});
+    RED.nodes.registerType('ubidots_out', {
+        category: 'output',
+        color : "#5996F7",
+        defaults : {
+            name : {value: ""},
+            token : {value: ""},
+            label_data_source: {value: ""},
+            protocol: {value: ""}
+        },
+        inputs : 1,
+        outputs : 0,
+        icon : "ubidots.png",
+        label : function() {
+            return this.name || this.to || "ubidots out";
+        },
+        labelStyle : function() {
+            return this.name ? "node_label_italic" : "";
+        }
+    });
 </script>
