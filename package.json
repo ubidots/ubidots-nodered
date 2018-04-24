@@ -20,7 +20,6 @@
     "url": "https://github.com/ubidots/ubidots-nodered"
   },
   "dependencies": {
-    "mqtt": "^1.12.0",
-    "request": "^2.85.0"
+    "mqtt": "^1.12.0"
   }
 }
