@@ -1,19 +1,39 @@
 <script type="text/x-red" data-template-name="ubidots_out">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name">
+        <label for="node-input-tier">
+            <i class="icon-flag"></i>
+            <span data-i18n="ubidots.select_tier"></span>
+        </label>
+        <select id="node-input-tier">
+            <option value="business">Ubidots for Business</option>
+            <option value="educational">Ubidots for Education</option>
+        </select>
     </div>
+
     <div class="form-row">
-        <label for="node-input-token"><i class="icon-lock"></i> <span data-i18n="ubidots.token.label"></span></label>
-        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder">
+        <label for="node-input-name">
+            <i class="icon-tag"></i>
+            <span data-i18n="ubidots.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
     </div>
+
     <div class="form-row">
-        <label for="node-input-labe_data_source"><i class="icon-tag"></i> <span data-i18n="ubidots.label_data_source.label"></span></label>
-        <input type="text" id="node-input-label_data_source" data-i18n="[placeholder]ubidots.label_data_source.placeholder">
+        <label for="node-input-token">
+            <i class="icon-lock"></i>
+            <span data-i18n="ubidots.token.label"></span>
+        </label>
+        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-label_data_source">
+            <i class="icon-tag"></i>
+            <span data-i18n="ubidots.label_data_source.label"></span>
+        </label>
+        <input type="text" id="node-input-label_data_source" data-i18n="[placeholder]ubidots.label_data_source.placeholder" />
     </div>
 </script>
-
-
 
 <script type="text/x-red" data-help-name="ubidots_out">
     <p><font size="-2">This node sends data to Ubidots</font></p>
@@ -40,7 +60,7 @@
             name : {value: ""},
             token : {value: ""},
             label_data_source: {value: ""},
-            protocol: {value: ""}
+            tier: { value: 'business' }
         },
         inputs : 1,
         outputs : 0,
@@ -53,3 +73,13 @@
         }
     });
 </script>
+
+<style>
+.form-row label {
+    width: 25%;
+}
+
+.form-row select {
+    width: 70%;
+}
+</style>
