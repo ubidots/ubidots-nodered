@@ -45,17 +45,44 @@
 
 
 <script type="text/x-red" data-help-name="ubidots_in">
-        <p><font size="-2">This node subscribes to value updates from ubidots.</font></p>
-    <h2>Ubidots</h2>
-    <font size="-1"><p>Ubidots is an IoT platform where you can store and retrieve millions of sensor readings, create live dashboards to analyze your data, trigger SMS/Email/Webhook alerts, and more.</p>
-    <p>You can get a free account at ubidots.com</p></font>
-    <p><b>Node description :</b><br/><font size="-1">This node subscribes to value updates from ubidots.</font></p>
-    <p><b>How to :</b><font size="-1">
-    <br/>-Token: A Ubidots token, which can be found or created in your profile settings.
-    <br/>-Device: A unique label to identify your device.
-    <br/>-Variable: A unique label to identify your variable.
-    </font></p>
+    <p>Fetch the last value from Ubidots and send it as a message to other nodes.</p>
 
+    <p>
+    Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and suscribe
+    to the channel.
+    </p>
+
+    <p>
+    You must configure your node by double cliking it and filling the following information, all fields are required:
+    <br />
+
+    <ul>
+        <li>
+            <b>Account type</b> - The type of your account, whether it is a Ubidots for Business or Ubidots for
+            Education account.
+        </li>
+        <li>
+            <b>Name</b> - The name to identify your MQTT client.
+        </li>
+        <li>
+            <b>Token</b> - Your Ubidots' account token. You can find it by following
+            <a href="http://help.ubidots.com/user-guides/find-your-token-from-your-ubidots-account" target="_blank">
+                this tutorial
+            </a>.
+        </li>
+        <li>
+            <b>Device label</b> - The label of the Device that contains the Variable where you want to fetch the values.
+        </li>
+        <li>
+            <b>Variable label</b> - The label of the Variable that you want to fetch the values from.
+        </li>
+    </ul>
+    </p>
+
+    <p>
+    Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more
+    information about the functionality of the MQTT broker.
+    </p>
 </script>
 
 <script type="text/javascript">
