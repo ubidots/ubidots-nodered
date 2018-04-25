@@ -1,19 +1,45 @@
 <script type="text/x-red" data-template-name="ubidots_in">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="ubidots.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name">
+        <label for="node-input-tier">
+            <i class="icon-flag"></i>
+            <span data-i18n="ubidots.select_tier"></span>
+        </label>
+        <select id="node-input-tier">
+            <option value="business">Ubidots for Business</option>
+            <option value="educational">Ubidots for Education</option>
+        </select>
     </div>
+
     <div class="form-row">
-        <label for="node-input-token"><i class="icon-lock"></i> <span data-i18n="ubidots.token.label"></span></label>
-        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder">
+        <label for="node-input-name">
+            <i class="icon-tag"></i>
+            <span data-i18n="ubidots.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
     </div>
+
     <div class="form-row">
-        <label for="node-input-labe_data_source"><i class="icon-tag"></i> <span data-i18n="ubidots.label_data_source.label"></span></label>
-        <input type="text" id="node-input-label_data_source" data-i18n="[placeholder]ubidots.label_data_source.placeholder">
+        <label for="node-input-token">
+            <i class="icon-lock"></i>
+            <span data-i18n="ubidots.token.label"></span>
+        </label>
+        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
     </div>
+
     <div class="form-row">
-        <label for="node-input-label_variable"><i class="icon-tag"></i> <span data-i18n="ubidots.label_variable.label"></span></label>
-        <input type="text" id="node-input-label_variable" data-i18n="[placeholder]ubidots.label_variable.placeholder">
+        <label for="node-input-labe_data_source">
+            <i class="icon-tag"></i>
+            <span data-i18n="ubidots.label_data_source.label"></span>
+        </label>
+        <input type="text" id="node-input-label_data_source" data-i18n="[placeholder]ubidots.label_data_source.placeholder" />
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-label_variable">
+            <i class="icon-tag"></i>
+            <span data-i18n="ubidots.label_variable.label"></span>
+        </label>
+        <input type="text" id="node-input-label_variable" data-i18n="[placeholder]ubidots.label_variable.placeholder" />
     </div>
 </script>
 
@@ -37,6 +63,7 @@
         category: 'input',
         color : "#5996F7",
         defaults : {
+            tier: { value: 'business' },
             name : {value : ""},
             token : {value : ""},
             label_data_source : {value : ""},

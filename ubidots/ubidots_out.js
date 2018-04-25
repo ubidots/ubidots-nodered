@@ -15,7 +15,7 @@ module.exports = function (RED) {
                     client.end(true, function () {});
                 }
             );
-            self.status({ fill: "green", shape: "ring", text: "ubidots.published" });
+            self.status({ fill: "green", shape: "dot", text: "ubidots.published" });
         });
 
         client.on('error', function (msg) {

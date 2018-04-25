@@ -1,17 +1,19 @@
 module.exports = function (RED) {
   var mqtt = require('mqtt');
 
-  function getClient(that, n) {
-    if(that.client !== null && that.client !== undefined){
-      that.client.end(true, function(){});
+  function getClient(self, endpoint_url, label_data_source, label_variable, token) {
+    self.status({ fill: "green", shape: "ring", text: "ubidots.connecting" });
+
+    if(this.client !== null && this.client !== undefined) {
+      this.client.end(true, function() {});
     }
 
-    var client = mqtt.connect('mqtt://things.ubidots.com', {username: n.token, password: ""});
-    that.client = client;
+    var client = mqtt.connect('mqtt://' + endpoint_url, {username: token, password: ""});
+    this.client = client;
 
     client.on("error", function () {
-      client.end(true, function(){});
-      that.status({fill: "red", shape: "ring", text: "disconnected"});
+      client.end(true, function() {});
+      self.status({ fill: "red", shape: "ring", text: "ubidots.error_connecting" });
     });
 
     client.on('close', function(){
@@ -19,33 +21,37 @@ module.exports = function (RED) {
     });
 
     client.on("reconnect", function () {
-      that.status({fill: "green", shape: "dot", text: "connected"});
-      var topic = "/v1.6/devices/" + n.label_data_source + "/" + n.label_variable;
+      var topic = "/v1.6/devices/" + label_data_source + "/" + label_variable;
       var options = {};
+
+      self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
       options[topic] = 1;
+
       client.subscribe(options, function (err, granted) {
         try {
           client.on('message', function (topic, message, packet) {
-            that.emit("input", {payload: JSON.parse(message.toString())});
+            self.emit("input", {payload: JSON.parse(message.toString())});
           });
         } catch (e) {
-          that.status({fill: "red", shape: "ring", text: "disconnected"});
+          self.status({ fill: "red", shape: "ring", text: "ubidots.error_connecting" });
         }
       });
     });
 
     client.on("connect", function () {
-      that.status({fill: "green", shape: "dot", text: "connected"});
-      var topic = "/v1.6/devices/" + n.label_data_source + "/" + n.label_variable;
+      var topic = "/v1.6/devices/" + label_data_source + "/" + label_variable;
       var options = {};
+
+      self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
       options[topic] = 1;
+
       client.subscribe(options, function (err, granted) {
         try {
           client.on('message', function (topic, message, packet) {
-            that.emit("input", {payload: JSON.parse(message.toString())});
+            self.emit("input", {payload: JSON.parse(message.toString())});
           });
         } catch (e) {
-          that.status({fill: "red", shape: "ring", text: "disconnected"});
+          self.status({ fill: "red", shape: "ring", text: "ubidots.error_connecting" });
         }
       });
     });
@@ -53,20 +59,30 @@ module.exports = function (RED) {
 
   function UbidotsNode(n) {
     RED.nodes.createNode(this, n);
-    var that = this;
-    getClient(that, n);
-    that.status({fill: "red", shape: "ring", text: "disconnected"});
+    var self = this;
+
+    var endpoint_urls = {
+      business: 'industrial.api.ubidots.com',
+      educational: 'things.ubidots.com'
+    };
+
+    var label_data_source = n.label_data_source;
+    var label_variable = n.label_variable;
+    var endpoint_url = endpoint_urls[n.tier] || endpoint_urls['business'];
+    var token = n.token;
+
+    getClient(self, endpoint_url, label_data_source, label_variable, token);
 
     this.on("error", function () {
-      if(that.client !== null && that.client !== undefined) {
-        that.client.end(true, function(){});
+      if(self.client !== null && self.client !== undefined) {
+        self.client.end(true, function(){});
       }
-      that.status({fill: "red", shape: "ring", text: "disconnected"});
+      self.status({ fill: "red", shape: "ring", text: "ubidots.error_connecting" });
     });
 
     this.on("close", function(){
-      if(that.client !== null && that.client !== undefined) {
-        that.client.end(true, function(){});
+      if(self.client !== null && self.client !== undefined) {
+        self.client.end(true, function(){});
       }
     });
 
