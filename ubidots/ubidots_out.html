@@ -36,20 +36,36 @@
 </script>
 
 <script type="text/x-red" data-help-name="ubidots_out">
-    <p><font size="-2">This node sends data to Ubidots</font></p>
-    <h2>Ubidots</h2>
-    <font size="-1"><p>Ubidots is an IoT platform where you can store and retrieve millions of sensor readings, create live dashboards to analyze your data, trigger SMS/Email/Webhook alerts, and more.</p>
-    <p>You can get a free account at ubidots.com<</p></font>
-    <p><b>Node description :</b><br/><font size="-1">This node sends data to a device in Ubidots, updating the variables specified in the payload.</font></p>
-    <p><b>How to :</b><font size="-1">
-        <br/>-Protocol : The protocol used to send the values of the variable, it can be HTTP or MQTT.
-    <br/>-Token : A Ubidots token, which can be found or created in your profile settings.
-    <br/>-Device: A unique label to identify your device. A data source will be created automatically in your account if none exists with this label.
-    <br/><br/>
-    This node receives as payload a JSON document where every key corresponds to the label of the variable
-    and the value is the value of the variable.
-    </font></p>
+    <p>Receives a message and use its values to make a request to the Ubidots API.</p>
 
+    <p>
+    Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and publish
+    the packet.
+    </p>
+
+    <p>
+    The message can contain the following properties, all of them except the <i>payload</i> can also be configured in
+    the node settings by double clicking it:<br />
+
+    <ul>
+        <li>
+            <b>msg.token</b> (optional) - The token of your account.
+        </li>
+        <li>
+            <b>msg.label_data_source</b> (optional) - The name of the Device in which the packet will be published. If
+            no Device exist with this label, it will be automatically created.
+        </li>
+        <li>
+            <b>msg.payload</b> (required) - The values to be published on the given Device. Each key is the label of the
+            variable.
+        </li>
+    </ul>
+    </p>
+
+    <p>
+    Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more
+    information about the functionality of the MQTT broker.
+    </p>
 </script>
 
 <script type="text/javascript">
