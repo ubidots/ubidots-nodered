@@ -4,17 +4,17 @@ This is a [Node-RED](http://nodered.org) node used to interact with the Ubidots 
 
 [Ubidots](https://ubidots.com) is a platform to help you power your IoT and Cloud applications.
 
-## Installation
+## Installation
 
 The `ubidots-nodered` node for Node-RED is available as an [npm package](https://www.npmjs.com/package/ubidots-nodered). We recommend
 you to read [Node-RED documentation](https://nodered.org/docs/getting-started/adding-nodes.html#installing-npm-packaged-nodes) if you
 have any doubts installing nodes in the platform.
 
-## Usage
+## Usage
 
 There are two different nodes: One for reading information from Ubidots and another one for sending information to Ubidots.
 
-### Ubidots In
+### Ubidots In
 
 This node is used to suscribe to an Ubidots [Variable](http://help.ubidots.com/faqs-and-troubleshooting/what-are-variables). It will
 listen to new values and pass it to further nodes in the `msg.payload`.
