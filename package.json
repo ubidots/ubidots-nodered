@@ -1,6 +1,6 @@
 {
   "name": "ubidots-nodered",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "NodeRED node to post data on Ubidots using MQTT.",
   "node-red": {
     "nodes": {
