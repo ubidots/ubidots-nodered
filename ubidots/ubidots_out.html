@@ -27,11 +27,11 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-label_data_source">
+        <label for="node-input-label_device">
             <i class="icon-tag"></i>
-            <span data-i18n="ubidots.label_data_source.label"></span>
+            <span data-i18n="ubidots.label_device.label"></span>
         </label>
-        <input type="text" id="node-input-label_data_source" data-i18n="[placeholder]ubidots.label_data_source.placeholder" />
+        <input type="text" id="node-input-label_device" data-i18n="[placeholder]ubidots.label_device.placeholder" />
     </div>
 </script>
 
@@ -52,7 +52,7 @@
             <b>msg.token</b> (optional) - The token of your account.
         </li>
         <li>
-            <b>msg.label_data_source</b> (optional) - The name of the Device in which the packet will be published. If
+            <b>msg.label_device</b> (optional) - The name of the Device in which the packet will be published. If
             no Device exist with this label, it will be automatically created.
         </li>
         <li>
@@ -75,7 +75,7 @@
         defaults : {
             name : {value: ""},
             token : {value: ""},
-            label_data_source: {value: ""},
+            label_device: {value: ""},
             tier: { value: 'business' }
         },
         inputs : 1,

@@ -3,12 +3,12 @@
 module.exports = function (RED) {
     var mqtt = require("mqtt");
 
-    function postUbidots(self, endpoint_url, label_data_source, values, token) {
+    function postUbidots(self, endpoint_url, label_device, values, token) {
         var client = mqtt.connect('mqtt://' + endpoint_url, {username: token, password: ""});
 
         client.on("connect", function () {
             client.publish(
-                "/v1.6/devices/" + label_data_source + "",
+                "/v1.6/devices/" + label_device + "",
                 values,
                 {'qos': 1, 'retain': false},
                 function (error, response) {
@@ -33,7 +33,7 @@ module.exports = function (RED) {
         };
 
         this.on("input", function (msg) {
-            var label_data_source = msg.label_data_source || n.label_data_source;
+            var label_device = msg.label_device || n.label_device;
             var endpoint_url = endpoint_urls[n.tier] || endpoint_urls['business'];
             var values = msg.payload;
             var token = msg.token || n.token;
@@ -43,7 +43,7 @@ module.exports = function (RED) {
             }
 
             self.status({ fill: "green", shape: "ring", text: "ubidots.connecting" });
-            postUbidots(self, endpoint_url, label_data_source, values, token);
+            postUbidots(self, endpoint_url, label_device, values, token);
         });
     }
 
