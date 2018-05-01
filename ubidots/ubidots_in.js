@@ -1,7 +1,7 @@
 module.exports = function (RED) {
   var mqtt = require('mqtt');
 
-  function getClient(self, endpoint_url, label_data_source, label_variable, token) {
+  function getClient(self, endpoint_url, label_device, label_variable, token) {
     self.status({ fill: "green", shape: "ring", text: "ubidots.connecting" });
 
     if(this.client !== null && this.client !== undefined) {
@@ -21,7 +21,7 @@ module.exports = function (RED) {
     });
 
     client.on("reconnect", function () {
-      var topic = "/v1.6/devices/" + label_data_source + "/" + label_variable;
+      var topic = "/v1.6/devices/" + label_device + "/" + label_variable;
       var options = {};
 
       self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
@@ -39,7 +39,7 @@ module.exports = function (RED) {
     });
 
     client.on("connect", function () {
-      var topic = "/v1.6/devices/" + label_data_source + "/" + label_variable;
+      var topic = "/v1.6/devices/" + label_device + "/" + label_variable;
       var options = {};
 
       self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
@@ -66,12 +66,12 @@ module.exports = function (RED) {
       educational: 'things.ubidots.com'
     };
 
-    var label_data_source = n.label_data_source;
+    var label_device = n.label_device;
     var label_variable = n.label_variable;
     var endpoint_url = endpoint_urls[n.tier] || endpoint_urls['business'];
     var token = n.token;
 
-    getClient(self, endpoint_url, label_data_source, label_variable, token);
+    getClient(self, endpoint_url, label_device, label_variable, token);
 
     this.on("error", function () {
       if(self.client !== null && self.client !== undefined) {
