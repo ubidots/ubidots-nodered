@@ -33,9 +33,9 @@ module.exports = function (RED) {
         };
 
         this.on("input", function (msg) {
-            var label_device = msg.label_device || n.label_device;
+            var label_device = (msg.device_label || n.device_label) || (msg.label_device || n.label_device);
             var endpoint_url = endpoint_urls[n.tier] || endpoint_urls['business'];
-            var values = msg.payload;
+            var values = (typeof msg.payload !== 'object' || msg.payload === null) ? {} : msg.payload;
             var token = msg.token || n.token;
 
             if (typeof (values) === 'object') {

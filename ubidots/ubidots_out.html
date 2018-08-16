@@ -5,7 +5,7 @@
             <span data-i18n="ubidots.select_tier"></span>
         </label>
         <select id="node-input-tier">
-            <option value="business">Ubidots for Business</option>
+            <option value="business">Ubidots</option>
             <option value="educational">Ubidots for Education</option>
         </select>
     </div>
@@ -27,16 +27,16 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-label_device">
+        <label for="node-input-device_label">
             <i class="icon-tag"></i>
-            <span data-i18n="ubidots.label_device.label"></span>
+            <span data-i18n="ubidots.device_label.label"></span>
         </label>
-        <input type="text" id="node-input-label_device" data-i18n="[placeholder]ubidots.label_device.placeholder" />
+        <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="ubidots_out">
-    <p>Receives a message and use its values to make a request to the Ubidots API.</p>
+    <p>Receives a message and uses its values to make a request to the Ubidots API.</p>
 
     <p>
     Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and publish
@@ -49,14 +49,14 @@
 
     <ul>
         <li>
-            <b>msg.token</b> (optional) - The token of your account.
+            <b>msg.token</b> (required) - The token of your account.
         </li>
         <li>
-            <b>msg.label_device</b> (optional) - The name of the Device in which the packet will be published. If
-            no Device exist with this label, it will be automatically created.
+            <b>msg.device_label</b> (optional) - The name of the Device in which the packet will be published. If
+            no Device exists with this label, it will be automatically created.
         </li>
         <li>
-            <b>msg.payload</b> (required) - The values to be published on the given Device. Each key is the label of the
+            <b>msg.payload</b> (optional) - The values to be published on the given Device. Each key is the label of the
             variable.
         </li>
     </ul>
@@ -76,6 +76,7 @@
             name : {value: ""},
             token : {value: ""},
             label_device: {value: ""},
+            device_label: {value: ""},
             tier: { value: 'business' }
         },
         inputs : 1,

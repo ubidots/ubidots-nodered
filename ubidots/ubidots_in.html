@@ -5,7 +5,7 @@
             <span data-i18n="ubidots.select_tier"></span>
         </label>
         <select id="node-input-tier">
-            <option value="business">Ubidots for Business</option>
+            <option value="business">Ubidots</option>
             <option value="educational">Ubidots for Education</option>
         </select>
     </div>
@@ -27,11 +27,11 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-label_device">
+        <label for="node-input-device_label">
             <i class="icon-tag"></i>
-            <span data-i18n="ubidots.label_device.label"></span>
+            <span data-i18n="ubidots.device_label.label"></span>
         </label>
-        <input type="text" id="node-input-label_device" data-i18n="[placeholder]ubidots.label_device.placeholder" />
+        <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
     </div>
 
     <div class="form-row">
@@ -58,7 +58,7 @@
 
     <ul>
         <li>
-            <b>Account type</b> - The type of your account, whether it is a Ubidots for Business or Ubidots for
+            <b>Account type</b> - The type of your account, whether it is a Ubidots or Ubidots for
             Education account.
         </li>
         <li>
@@ -93,7 +93,8 @@
             tier: { value: 'business' },
             name : {value : ""},
             token : {value : ""},
-            label_device : {value : ""},
+            device_label : {value : ""},
+            label_device : {value: ""},
             label_variable : {value: ""}
         },
         inputs : 0,

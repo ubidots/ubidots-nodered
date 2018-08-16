@@ -4,7 +4,7 @@
             "label": "Token",
             "placeholder": "Authentication Token"
         },
-        "label_device": {"label": "Device Label", "placeholder": "Device label"},
+        "device_label": {"label": "Device Label", "placeholder": "Device label"},
         "label_variable": {"label": "Variable Label", "placeholder": "Variable label"},
         "varid": "Variable ID",
         "name": "Name",
