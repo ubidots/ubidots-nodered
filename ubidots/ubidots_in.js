@@ -66,7 +66,7 @@ module.exports = function (RED) {
       educational: 'things.ubidots.com'
     };
 
-    var label_device = n.label_device;
+    var label_device = n.device_label || n.label_device;
     var label_variable = n.label_variable;
     var endpoint_url = endpoint_urls[n.tier] || endpoint_urls['business'];
     var token = n.token;

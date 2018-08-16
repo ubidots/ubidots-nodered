@@ -46,7 +46,7 @@ non-easy-to-copy name, to prevent cases where the name crashes between different
 
 * __Token__ _or_ __msg.token__: This is your account token. You may find information on how to obtain this token in the [following link](http://help.ubidots.com/user-guides/find-your-token-from-your-ubidots-account)
 
-* __Device label__ _or_ __msg.label_device__: The label of the [Device](http://help.ubidots.com/user-guides/ubidots-basics-devices-variables-dashboards-and-alerts) to which you want to send the data.
+* __Device label__ _or_ __msg.device_label__: The label of the [Device](http://help.ubidots.com/user-guides/ubidots-basics-devices-variables-dashboards-and-alerts) to which you want to send the data.
 
 * __msg.payload:__ This payload will contain all the values that will be sent to the Device. It's structured to use the key of the
 object as the Variable label and the value of the key as the value to send to Ubidots, e.g. `{"variable-label": 42}`
