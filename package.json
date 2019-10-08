@@ -21,5 +21,8 @@
   },
   "dependencies": {
     "mqtt": "^1.12.0"
+  },
+  "devDependencies": {
+    "standard": "^14.3.1"
   }
 }
