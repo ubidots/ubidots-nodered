@@ -1,16 +1,16 @@
 module.exports = function (RED) {
   var mqtt = require('mqtt')
 
-  function postUbidots (self, endpoint_url, label_device, values, token) {
-    var client = mqtt.connect('mqtt://' + endpoint_url, { username: token, password: '' })
+  function postUbidots (self, endpointUrl, labelDevice, values, token) {
+    var client = mqtt.connect('mqtt://' + endpointUrl, { username: token, password: '' })
 
     client.on('connect', function () {
       client.publish(
-        '/v1.6/devices/' + label_device + '',
+        '/v1.6/devices/' + labelDevice,
         values,
         { qos: 1, retain: false },
-        function (error, response) {
-          client.end(true, function () {})
+        function () {
+          client.end(true)
         }
       )
       self.status({ fill: 'green', shape: 'dot', text: 'ubidots.published' })
@@ -25,14 +25,14 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, n)
     var self = this
 
-    var endpoint_urls = {
+    var ENDPOINT_URLS = {
       business: 'industrial.api.ubidots.com',
       educational: 'things.ubidots.com'
     }
 
     this.on('input', function (msg) {
-      var label_device = (msg.device_label || n.device_label) || (msg.label_device || n.label_device)
-      var endpoint_url = endpoint_urls[n.tier] || endpoint_urls.business
+      var labelDevice = (msg.device_label || n.device_label) || (msg.label_device || n.label_device)
+      var endpointUrl = ENDPOINT_URLS[n.tier] || ENDPOINT_URLS.business
       var values = (typeof msg.payload !== 'object' || msg.payload === null) ? {} : msg.payload
       var token = msg.token || n.token
 
@@ -41,7 +41,7 @@ module.exports = function (RED) {
       }
 
       self.status({ fill: 'green', shape: 'ring', text: 'ubidots.connecting' })
-      postUbidots(self, endpoint_url, label_device, values, token)
+      postUbidots(self, endpointUrl, labelDevice, values, token)
     })
   }
 
