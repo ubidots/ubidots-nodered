@@ -51,7 +51,7 @@ non-easy-to-copy name, to prevent cases where the name crashes between different
 * __msg.payload:__ This payload will contain all the values that will be sent to the Device. It's structured to use the key of the
 object as the Variable label and the value of the key as the value to send to Ubidots, e.g. `{"variable-label": 42}`
 
-## Authentication
+## Authentication
 
 The authentication is made by using the __Token__ field in your nodes. You can read more about authenticating with Ubidots and MQTT in [our documentation](https://ubidots.com/docs/api/mqtt.html#authentication).
 
