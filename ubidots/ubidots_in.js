@@ -1,14 +1,14 @@
 module.exports = function (RED) {
   var mqtt = require('mqtt')
 
-  function getClient (self, endpoint_url, label_device, label_variable, token) {
+  function getClient (self, endpointUrl, labelDevice, labelVariable, token) {
     self.status({ fill: 'green', shape: 'ring', text: 'ubidots.connecting' })
 
     if (this.client !== null && this.client !== undefined) {
       this.client.end(true, function () {})
     }
 
-    var client = mqtt.connect('mqtt://' + endpoint_url, { username: token, password: '' })
+    var client = mqtt.connect('mqtt://' + endpointUrl, { username: token, password: '' })
     this.client = client
 
     client.on('error', function () {
@@ -21,13 +21,13 @@ module.exports = function (RED) {
     })
 
     client.on('reconnect', function () {
-      var topic = '/v1.6/devices/' + label_device + '/' + label_variable
+      var topic = '/v1.6/devices/' + labelDevice + '/' + labelVariable
       var options = {}
 
       self.status({ fill: 'green', shape: 'dot', text: 'ubidots.connected' })
       options[topic] = 1
 
-      client.subscribe(options, function (err, granted) {
+      client.subscribe(options, function () {
         try {
           client.on('message', function (topic, message, packet) {
             self.emit('input', { payload: JSON.parse(message.toString()) })
@@ -39,13 +39,13 @@ module.exports = function (RED) {
     })
 
     client.on('connect', function () {
-      var topic = '/v1.6/devices/' + label_device + '/' + label_variable
+      var topic = '/v1.6/devices/' + labelDevice + '/' + labelVariable
       var options = {}
 
       self.status({ fill: 'green', shape: 'dot', text: 'ubidots.connected' })
       options[topic] = 1
 
-      client.subscribe(options, function (err, granted) {
+      client.subscribe(options, function () {
         try {
           client.on('message', function (topic, message, packet) {
             self.emit('input', { payload: JSON.parse(message.toString()) })
@@ -61,17 +61,17 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, n)
     var self = this
 
-    var endpoint_urls = {
+    var ENDPOINTS_URLS = {
       business: 'industrial.api.ubidots.com',
       educational: 'things.ubidots.com'
     }
 
-    var label_device = n.device_label || n.label_device
-    var label_variable = n.label_variable
-    var endpoint_url = endpoint_urls[n.tier] || endpoint_urls.business
+    var labelDevice = n.device_label || n.label_device
+    var labelVariable = n.label_variable
+    var endpointUrl = ENDPOINTS_URLS[n.tier] || ENDPOINTS_URLS.business
     var token = n.token
 
-    getClient(self, endpoint_url, label_device, label_variable, token)
+    getClient(self, endpointUrl, labelDevice, labelVariable, token)
 
     this.on('error', function () {
       if (self.client !== null && self.client !== undefined) {
