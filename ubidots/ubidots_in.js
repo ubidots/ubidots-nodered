@@ -4,12 +4,7 @@ module.exports = function (RED) {
   function getClient (self, endpointUrl, labelDevice, labelVariable, token) {
     self.status({ fill: 'green', shape: 'ring', text: 'ubidots.connecting' })
 
-    if (this.client !== null && this.client !== undefined) {
-      this.client.end(true, function () {})
-    }
-
     var client = mqtt.connect('mqtt://' + endpointUrl, { username: token, password: '' })
-    this.client = client
 
     client.on('error', function () {
       client.end(true, function () {})
