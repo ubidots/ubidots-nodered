@@ -4,8 +4,11 @@
             "label": "Token",
             "placeholder": "Authentication Token"
         },
-        "device_label": {"label": "Device Label", "placeholder": "Device label"},
-        "label_variable": {"label": "Variable Label", "placeholder": "Variable label"},
+        "device_label": { "label": "Device Label", "placeholder": "Device label" },
+        "label_variable": {
+            "label": "Variable Label"
+        },
+        "tls": { "label": "TLS", "certificate": "Certificate", "upload": "Upload" },
         "varid": "Variable ID",
         "name": "Name",
         "select_tier": "Account Type",

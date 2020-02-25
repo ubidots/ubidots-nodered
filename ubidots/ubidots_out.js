@@ -66,7 +66,7 @@ module.exports = function(RED) {
           values,
           { qos: 1, retain: false },
           function() {
-            console.log("Published successfully");
+            console.log("Published successfully,");
           }
         );
       } catch (e) {

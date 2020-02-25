@@ -1,109 +1,125 @@
 <script type="text/x-red" data-template-name="ubidots_in">
     <div class="form-row">
         <label for="node-input-tier">
-            <i class="icon-flag"></i>
-            <span data-i18n="ubidots.select_tier"></span>
-        </label>
+      <i class="icon-flag"></i>
+      <span data-i18n="ubidots.select_tier"></span>
+  </label>
         <select id="node-input-tier">
-            <option value="business">Ubidots</option>
-            <option value="educational">Ubidots for Education</option>
-        </select>
+      <option value="business">Ubidots</option>
+      <option value="educational">Ubidots for Education</option>
+  </select>
     </div>
 
     <div class="form-row">
         <label for="node-input-name">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.name"></span>
-        </label>
+      <i class="icon-tag"></i>
+      <span data-i18n="ubidots.name"></span>
+  </label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
     </div>
 
     <div class="form-row">
         <label for="node-input-token">
-            <i class="icon-lock"></i>
-            <span data-i18n="ubidots.token.label"></span>
-        </label>
+      <i class="icon-lock"></i>
+      <span data-i18n="ubidots.token.label"></span>
+  </label>
         <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
     </div>
 
     <div class="form-row">
         <label for="node-input-device_label">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.device_label.label"></span>
-        </label>
+      <i class="icon-tag"></i>
+      <span data-i18n="ubidots.device_label.label"></span>
+  </label>
         <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
     </div>
 
     <div class="form-row">
         <label for="node-input-label_variable">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.label_variable.label"></span>
-        </label>
+      <i class="icon-tag"></i>
+      <span data-i18n="ubidots.label_variable.label"></span>
+  </label>
         <input type="text" id="node-input-label_variable" data-i18n="[placeholder]ubidots.label_variable.placeholder" />
     </div>
-</script>
 
+    <div class="form-row">
+        <label for="ubidots-add-variable-button">
+            <span data-i18n="ubidots.variables.add"></span>
+        </label>
+        <span onclick="myFunction()">
+       <button class="red-ui-button" id="ubidots-add-variable-button"><i class="fa fa-plus"></i></button>
+    </span>
+    </div>
+
+</script>
 
 <script type="text/x-red" data-help-name="ubidots_in">
     <p>Fetch the last value from Ubidots and send it as a message to other nodes.</p>
 
     <p>
-    Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and suscribe
-    to the channel.
+        Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and suscribe to the channel.
     </p>
 
     <p>
-    You must configure your node by double clicking it and filling the following information, all fields are required:
-    <br />
+        You must configure your node by double clicking it and filling the following information, all fields are required:
+        <br />
 
-    <ul>
-        <li>
-            <b>Account type</b> - The type of your account, whether it is a Ubidots or Ubidots for
-            Education account.
-        </li>
-        <li>
-            <b>Name</b> - The name to identify your MQTT client.
-        </li>
-        <li>
-            <b>Token</b> - Your Ubidots' account token. You can find it by following
-            <a href="http://help.ubidots.com/user-guides/find-your-token-from-your-ubidots-account" target="_blank">
-                this tutorial
-            </a>.
-        </li>
-        <li>
-            <b>Device label</b> - The label of the Device that contains the Variable where you want to fetch the values.
-        </li>
-        <li>
-            <b>Variable label</b> - The label of the Variable that you want to fetch the values from.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <b>Account type</b> - The type of your account, whether it is a Ubidots or Ubidots for Education account.
+            </li>
+            <li>
+                <b>Name</b> - The name to identify your MQTT client.
+            </li>
+            <li>
+                <b>Token</b> - Your Ubidots' account token. You can find it by following
+                <a href="http://help.ubidots.com/user-guides/find-your-token-from-your-ubidots-account" target="_blank">
+        this tutorial
+    </a>.
+            </li>
+            <li>
+                <b>Device label</b> - The label of the Device that contains the Variable where you want to fetch the values.
+            </li>
+            <li>
+                <b>Variable label</b> - The label of the Variable that you want to fetch the values from.
+            </li>
+        </ul>
     </p>
 
     <p>
-    Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more
-    information about the functionality of the MQTT broker.
+        Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
     </p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('ubidots_in', {
-        category: 'input',
-        color : "#5996F7",
-        defaults : {
-            tier: { value: 'business' },
-            name : {value : ""},
-            token : {value : ""},
-            device_label : {value : ""},
-            label_variable : {value: ""}
+    RED.nodes.registerType("ubidots_in", {
+        category: "input",
+        color: "#5996F7",
+        defaults: {
+            tier: {
+                value: "business"
+            },
+            name: {
+                value: ""
+            },
+            token: {
+                value: ""
+            },
+            device_label: {
+                value: ""
+            },
+            label_variable: {
+                value: ""
+            }
         },
-        inputs : 0,
-        outputs : 1,
+        inputs: 0,
+        outputs: 1,
 
-        icon : "ubidots.png",
-        label : function() {
+        icon: "ubidots.png",
+        label: function() {
             return this.name || this.to || "ubidots input";
         },
-        labelStyle : function() {
+        labelStyle: function() {
             return this.name ? "node_label_italic" : "";
         }
     });
