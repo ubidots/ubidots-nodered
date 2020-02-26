@@ -14,6 +14,7 @@
         "variables": {
             "add": "Add Variable",
             "remove": "Remove Variable",
+            "delete": "Delete variable(s)",
             "variable2": "Variable 2",
             "placeholder2": "Variable Label 2",
             "variable3": "Variable 3",
