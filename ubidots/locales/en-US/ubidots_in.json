@@ -13,6 +13,7 @@
         "error_connecting": "Error connecting...",
         "variables": {
             "add": "Add Variable",
+            "remove": "Remove Variable",
             "variable2": "Variable 2",
             "placeholder2": "Variable Label 2",
             "variable3": "Variable 3",
