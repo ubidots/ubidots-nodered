@@ -5,7 +5,7 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    console.log("Config ubidots_out: ", config);
+    // console.log("Config ubidots_out: ", config);
     var self = this;
     var ENDPOINT_URLS = {
       business: "industrial.api.ubidots.com",
@@ -65,7 +65,10 @@ module.exports = function(RED) {
     });
 
     self.on("input", function(msg, send, done) {
-      var device_label = msg.device_label || config.device_label;
+      //In case the msg contains a property named'ubidotsDeviceLabel'
+      //it will be taken as device_label, otherwise it takes it from the device_label field
+      var device_label = msg.payload.ubidotsDeviceLabel || config.device_label;
+
       var values =
         typeof msg.payload !== "object" || msg.payload === null
           ? {}
@@ -75,7 +78,6 @@ module.exports = function(RED) {
         values = JSON.stringify(values);
       }
       console.log("Message: ", values);
-
       try {
         client.publish(
           "/v1.6/devices/" + device_label,
@@ -88,6 +90,7 @@ module.exports = function(RED) {
       } catch (e) {
         console.log("Published failed: ", e);
       }
+
       if (done) {
         done();
       }
