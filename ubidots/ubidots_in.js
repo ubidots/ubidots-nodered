@@ -4,7 +4,7 @@ module.exports = function(RED) {
   function getClient(self, endpointUrl, labelDevice, labelVariable, token) {
     self.status({ fill: "green", shape: "ring", text: "ubidots.connecting" });
 
-   /*  var tlsClient = mqtt.connect("mqtts://" + endpointUrl, {
+    /*  var tlsClient = mqtt.connect("mqtts://" + endpointUrl, {
       username: token,
       password: ""
     }); */
@@ -79,7 +79,7 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    console.log("Ubidots_in CONFIG: ", config);
+    // console.log("Ubidots_in CONFIG: ", config);
     var self = this;
     var ENDPOINTS_URLS = {
       business: "industrial.api.ubidots.com",
@@ -91,7 +91,6 @@ module.exports = function(RED) {
     var endpointUrl = ENDPOINTS_URLS[config.tier] || ENDPOINTS_URLS.business;
     var token = config.token;
     var variable2 = config["label-variable-2"];
-    console.log("Variable 2", variable2);
 
     getClient(self, endpointUrl, labelDevice, labelVariable, token);
 

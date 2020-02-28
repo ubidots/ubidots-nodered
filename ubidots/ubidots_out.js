@@ -5,46 +5,31 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
+    console.log("Config ubidots_out: ", config);
     var self = this;
     var ENDPOINT_URLS = {
       business: "industrial.api.ubidots.com",
       educational: "things.ubidots.com"
     };
+    var useTLS = config.tls_checkbox;
     var URL_PREFIX = "mqtt://";
 
     var port = 1883;
     var portTLS = 8883;
     var certificate = fs.readFile(
       path.join(__dirname, "../keys/certificate.pem"),
-      "utf8"
+      "utf8",
+      function() {}
     );
-    var options = {
-      username: token,
-      password: "",
-      port: port,
-      keepAlive: 60,
-      clean: true,
-      reschedulePings: true,
-      connectTimeout: 30000,
-      reconnectPeriod: 2000
-    };
-
-    var optionsTLS = {
-      username: token,
-      password: "",
-      port: portTLS,
-      cert: certificate,
-      protocol: "mqtts"
-    };
 
     var endpointUrl = ENDPOINT_URLS[config.tier] || ENDPOINT_URLS.business;
     var token = config.token;
     var client = mqtt.connect(URL_PREFIX + endpointUrl, {
       username: token,
       password: "",
-      port: portTLS,
-      cert: certificate,
-      protocol: "mqtts",
+      port: useTLS ? portTLS : port,
+      cert: useTLS ? certificate : undefined,
+      protocol: useTLS ? "mqtts" : "mqtt",
       keepAlive: 60,
       clean: true,
       reschedulePings: true,
@@ -62,8 +47,7 @@ module.exports = function(RED) {
     });
 
     client.on("connect", function(connack) {
-      console.log("Connack: ", client);
-      console.log("Publisher Connected");
+      console.log("Publisher connected");
       self.status({ fill: "green", shape: "dot", text: "Connected" });
     });
     client.on("disconnect", function(packet) {
