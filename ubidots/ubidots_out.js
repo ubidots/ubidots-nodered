@@ -68,29 +68,38 @@ module.exports = function(RED) {
       //In case the msg contains a property named'ubidotsDeviceLabel'
       //it will be taken as device_label, otherwise it takes it from the device_label field
       var device_label = msg.payload.ubidotsDeviceLabel || config.device_label;
-
-      var values =
-        typeof msg.payload !== "object" || msg.payload === null
-          ? {}
-          : msg.payload;
-
-      if (typeof values === "object") {
-        values = JSON.stringify(values);
-      }
-      console.log("Message: ", values);
-      try {
-        client.publish(
-          "/v1.6/devices/" + device_label,
-          values,
-          { qos: 1, retain: false },
-          function() {
-            console.log("Published successfully,");
-          }
+      if (device_label === undefined || device_label === "") {
+        console.error(
+          "Device_Label is not defined. The device_label field is probably empty or you didn't include the key 'ubidotsDeviceLabel' in your JSON."
         );
-      } catch (e) {
-        console.log("Published failed: ", e);
-      }
+      } else {
+        if (msg.payload.ubidotsDeviceLabel) {
+          console.log("inside ubidotsDeviceLabel if");
+          delete msg.payload.ubidotsDeviceLabel;
+          console.log("Message after Deletion: ", msg.payload);
+        }
+        var values =
+          typeof msg.payload !== "object" || msg.payload === null
+            ? {}
+            : msg.payload;
 
+        if (typeof values === "object") {
+          values = JSON.stringify(values);
+        }
+        console.log("Message: ", values);
+        try {
+          client.publish(
+            "/v1.6/devices/" + device_label,
+            values,
+            { qos: 1, retain: false },
+            function() {
+              console.log("Published successfully,");
+            }
+          );
+        } catch (e) {
+          console.log("Published failed: ", e);
+        }
+      }
       if (done) {
         done();
       }
