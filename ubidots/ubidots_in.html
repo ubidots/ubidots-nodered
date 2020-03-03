@@ -1,7 +1,7 @@
 <script type="text/x-red" data-template-name="ubidots_in">
     <div class="form-row">
         <label for="node-input-tier">
-      <i class="icon-flag"></i>
+      <i class="fa fa-flag"></i>
       <span data-i18n="ubidots.select_tier"></span>
   </label>
         <select id="node-input-tier">
@@ -12,7 +12,7 @@
 
     <div class="form-row">
         <label for="node-input-name">
-      <i class="icon-tag"></i>
+          <i class="fa fa-tag"></i>
       <span data-i18n="ubidots.name"></span>
   </label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
@@ -20,7 +20,7 @@
 
     <div class="form-row">
         <label for="node-input-token">
-      <i class="icon-lock"></i>
+      <i class="fa fa-lock"></i>
       <span data-i18n="ubidots.token.label"></span>
   </label>
         <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
@@ -28,23 +28,32 @@
 
     <div class="form-row">
         <label for="node-input-device_label">
-      <i class="icon-tag"></i>
+      <i class="fa fa-tag"></i>
       <span data-i18n="ubidots.device_label.label"></span>
   </label>
         <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
     </div>
-
+    <div class="form-row">
+      <input type="checkbox" checked id="node-input-tls_checkbox_in" style="display: inline-block; width: auto; vertical-align: top;"></label>
+      <label for="node-input-tls_checkbox_in" style="width: calc(100% - 170px); margin-left:15px" data-i18n="ubidots.tls.label"></label>
+  </div>
+  <div class="form-row">
+    <input type="checkbox" checked id="node-input-custom_topic_checkbox" style="display: inline-block; width: auto; vertical-align: top;"></label>
+    <label for="node-input-custom_topic_checkbox" style="width: calc(100% - 170px); margin-left:15px" data-i18n="ubidots.custom_topics"></label>
+</div>
+<hr>
     <div class="form-row">
         <label for="node-input-label_variable_1">
-      <i class="icon-tag"></i>
+      
       <span data-i18n="ubidots.label_variable.label"></span>
   </label>
         <input type="text" id="node-input-label_variable_1" data-i18n="[placeholder]ubidots.label_variable.placeholder" />
     </div>
-    <hr>
-    <!-- DELETE BUTTON -->
-    <div class="button_cont" align="right" style="margin-bottom:10px">
-        <button id="delete-variables-button" class="deleteButton" data-i18n="ubidots.variables.delete"></button>
+   
+    <!-- DELETE/SELECT ALL BUTTON -->
+    <div class="form-row">
+        <button id="select-all-variables-button" class="deleteButton" data-i18n="ubidots.variables.selectAll"></button>
+        <button id="delete-variables-button" style="margin-left:250px" class="deleteButton" data-i18n="ubidots.variables.delete"></button>
     </div>
 
     <!-- EXTRA VARIABLES -->
@@ -55,7 +64,8 @@
       <span data-i18n="ubidots.variables.variable2"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_2" data-i18n="[placeholder]ubidots.variables.placeholder2" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-2" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-2"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-2" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     <!-- Variable 3 -->
     <div id="variable-3" class="form-row">
@@ -65,7 +75,8 @@
       <span data-i18n="ubidots.variables.variable3"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_3" data-i18n="[placeholder]ubidots.variables.placeholder3" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-3" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-3"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-3" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 4 -->
@@ -76,7 +87,8 @@
       <span data-i18n="ubidots.variables.variable4"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_4" data-i18n="[placeholder]ubidots.variables.placeholder4" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-4" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-4"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-4" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 5 -->
@@ -87,7 +99,8 @@
       <span data-i18n="ubidots.variables.variable5"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_5" data-i18n="[placeholder]ubidots.variables.placeholder5" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-5" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-5"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-5" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 6 -->
@@ -98,7 +111,8 @@
       <span data-i18n="ubidots.variables.variable6"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_6" data-i18n="[placeholder]ubidots.variables.placeholder6" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-6" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-6"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-6" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 7 -->
@@ -109,7 +123,8 @@
       <span data-i18n="ubidots.variables.variable7"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_7" data-i18n="[placeholder]ubidots.variables.placeholder7" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-7" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-7"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-7" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 8 -->
@@ -120,7 +135,8 @@
       <span data-i18n="ubidots.variables.variable8"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_8" data-i18n="[placeholder]ubidots.variables.placeholder8" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-8" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-8"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-8" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 9 -->
@@ -131,7 +147,8 @@
       <span data-i18n="ubidots.variables.variable9"></span>
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_9" data-i18n="[placeholder]ubidots.variables.placeholder9" />
-        <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-9" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <button class="red-ui-button" id="ubidots-variable-button-key-clear-9"><i style="color:#525050;"class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-9" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Variable 10 -->
@@ -143,6 +160,7 @@
   </label>
         <input type="text" style="width: calc(100% - 170px);" id="node-input-label_variable_10" data-i18n="[placeholder]ubidots.variables.placeholder10" />
         <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-10" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        <!-- <button class="red-ui-button red-ui-button-small" id="ubidots-variable-button-key-clear-10" style="margin-left: 10px"><i class="fa fa-times"></i></button> -->
     </div>
     </div>
     <!-- Add Button -->
@@ -213,37 +231,37 @@
         required: true
       },
       device_label: {
-        value: "",
+        value: ""
       },
-      "label_variable_1": {
+      label_variable_1: {
         value: "",
         required: true
       },
-      "label_variable_2": {
+      label_variable_2: {
         value: ""
       },
-      "label_variable_3": {
+      label_variable_3: {
         value: ""
       },
-      "label_variable_4": {
+      label_variable_4: {
         value: ""
       },
-      "label_variable_5": {
+      label_variable_5: {
         value: ""
       },
-      "label_variable_6": {
+      label_variable_6: {
         value: ""
       },
-      "label_variable_7": {
+      label_variable_7: {
         value: ""
       },
-      "label_variable_8": {
+      label_variable_8: {
         value: ""
       },
-      "label_variable_9": {
+      label_variable_9: {
         value: ""
       },
-      "label_variable_10": {
+      label_variable_10: {
         value: ""
       }
     },
@@ -257,11 +275,9 @@
     labelStyle: function() {
       return this.name ? "node_label_italic" : "";
     },
-    oneditcancel: function() {
-    },
+    oneditcancel: function() {},
 
-    oneditsave: function() {
-    },
+    oneditsave: function() {},
     oneditprepare: function() {
       var variablesActivos = [];
       var variablesDesactivados = [2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -277,6 +293,7 @@
         }
       }
       $("#delete-variables-button").hide();
+      $("#select-all-variables-button").hide();
 
       //Defining checkbox behaviour
       $("#ubidots-checkbox-variable-2").on("click", function() {
@@ -353,7 +370,20 @@
         showAddButton();
       });
 
+      $("#select-all-variables-button").on("click", function() {
+        for (var l = 0; l <= 10; l++) {
+          if ($("#variable-" + l).is(":visible")) {
+            $(genericCheckBoxString + l.toString()).prop("checked", true);
+          }
+        }
+        $("#select-all-variables-button").attr(
+          "data-i18n",
+          i18n.t("ubidots.variables.unselectAll")
+        );
+      });
+
       $("#delete-variables-button").on("click", function() {
+        console.log("Inside Delete Button pressed");
         auxArray = Array.from(checkedVariables);
         for (var i = 0; i < auxArray.length; i++) {
           manageArrays(auxArray[i]);
@@ -384,14 +414,16 @@
       }
 
       function emptyFields(number) {
-        $("#node-input-label_variable_" + number.toString()).val("");      
+        $("#node-input-label_variable_" + number.toString()).val("");
         $(genericCheckBoxString + number.toString()).prop("checked", false);
       }
 
       function showDeleteButton() {
         if (checkedVariables.length > 0) {
+          $("#select-all-variables-button").show();
           $("#delete-variables-button").show();
         } else {
+          $("#select-all-variables-button").hide();
           $("#delete-variables-button").hide();
         }
       }
@@ -440,5 +472,8 @@
     background: #8a1222;
     border-color: #8a1222 !important;
     transition: all 0.4s ease 0s;
+  }
+  .red-ui-button {
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1), 0 6px 15px 0 rgba(0, 0, 0, 0.1);
   }
 </style>

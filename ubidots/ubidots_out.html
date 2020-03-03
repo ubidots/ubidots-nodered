@@ -1,9 +1,10 @@
 <script type="text/x-red" data-template-name="ubidots_out">
    <div class="form-row">
-       <label for="node-input-tier">
-         <i class="icon-flag"></i>
-         <span data-i18n="ubidots.select_tier"></span>
-     </label>
+     <label for="node-input-tier" style="font-size:13px">
+       <i class="fa fa-flag"></i>
+     
+       <span data-i18n="ubidots.select_tier"></span>
+      </label>
        <select id="node-input-tier">
          <option value="business">Ubidots</option>
          <option value="educational">Ubidots for Education</option>
@@ -12,7 +13,7 @@
 
    <div class="form-row">
        <label for="node-input-name">
-         <i class="icon-tag"></i>
+         <i class="fa fa-tag"></i>
          <span data-i18n="ubidots.name"></span>
      </label>
        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
@@ -20,7 +21,7 @@
 
    <div class="form-row">
        <label for="node-input-token">
-         <i class="icon-lock"></i>
+         <i class="fa fa-lock"></i>
          <span data-i18n="ubidots.token.label"></span>
      </label>
        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
@@ -28,14 +29,14 @@
 
    <div class="form-row">
        <label for="node-input-device_label">
-         <i class="icon-tag"></i>
+         <i class="fa fa-tag"></i>
          <span data-i18n="ubidots.device_label.label"></span>
      </label>
        <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
    </div>
   <div class="form-row">
-       <label for="node-input-tls_checkbox" data-i18n="ubidots.tls.label"></label>
-       <input type="checkbox" checked id="node-input-tls_checkbox" style="display: inline-block; width: auto; vertical-align: top;"></label>
+    <input type="checkbox" checked id="node-input-tls_checkbox" style="display: inline-block; width: auto; vertical-align: top;"></label>
+    <label for="node-input-tls_checkbox" style="width: calc(100% - 170px); margin-left:15px" data-i18n="ubidots.tls.label"></label>
    </div>
 
 
