@@ -74,9 +74,9 @@ module.exports = function(RED) {
         );
       } else {
         if (msg.payload.ubidotsDeviceLabel) {
-          console.log("inside ubidotsDeviceLabel if");
+          //console.log("inside ubidotsDeviceLabel if");
           delete msg.payload.ubidotsDeviceLabel;
-          console.log("Message after Deletion: ", msg.payload);
+          //console.log("Message after Deletion: ", msg.payload);
         }
         var values =
           typeof msg.payload !== "object" || msg.payload === null
@@ -86,7 +86,7 @@ module.exports = function(RED) {
         if (typeof values === "object") {
           values = JSON.stringify(values);
         }
-        console.log("Message: ", values);
+        //console.log("Message: ", values);
         try {
           client.publish(
             "/v1.6/devices/" + device_label,

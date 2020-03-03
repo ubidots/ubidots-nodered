@@ -57,13 +57,16 @@ module.exports = function(RED) {
       console.log("Client connected");
       var topic = "/v1.6/devices/" + labelDevice + "/" + labelVariable;
       var options = {};
-
+      console.log("Client, topic: ", topic);
+      console.log("Client, options: ", options);
       self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
       options[topic] = 1;
 
       client.subscribe(options, function() {
+        console.log("Client inside Subscribe");
         try {
           client.on("message", function(topic, message, packet) {
+            console.log("Message ", message.toString());
             self.emit("input", { payload: JSON.parse(message.toString()) });
           });
         } catch (e) {
@@ -79,7 +82,7 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    // console.log("Ubidots_in CONFIG: ", config);
+    //  console.log("Ubidots_in CONFIG: ", config);
     var self = this;
     var ENDPOINTS_URLS = {
       business: "industrial.api.ubidots.com",
@@ -87,10 +90,10 @@ module.exports = function(RED) {
     };
 
     var labelDevice = config.device_label;
-    var labelVariable = config["label-variable-1"];
+    var labelVariable = config["label_variable_1"];
+    console.log("Client, labelVariable ", labelVariable);
     var endpointUrl = ENDPOINTS_URLS[config.tier] || ENDPOINTS_URLS.business;
     var token = config.token;
-    var variable2 = config["label-variable-2"];
 
     getClient(self, endpointUrl, labelDevice, labelVariable, token);
 
