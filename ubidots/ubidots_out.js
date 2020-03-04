@@ -5,7 +5,7 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    // console.log("Config ubidots_out: ", config);
+    console.log("Config ubidots_out: ", config);
     var self = this;
     var ENDPOINT_URLS = {
       business: "industrial.api.ubidots.com",
@@ -16,11 +16,15 @@ module.exports = function(RED) {
 
     var port = 1883;
     var portTLS = 8883;
-    var certificate = fs.readFile(
-      path.join(__dirname, "../keys/certificate.pem"),
+    var certificate = fs.readFileSync(
+      path.join(__dirname, "./certificate.pem"),
       "utf8",
       function() {}
     );
+    console.log("certificate: ", certificate);
+    console.log("Publisher port: ", useTLS ? portTLS : port);
+    console.log("Publisher cert: ", useTLS ? certificate : undefined);
+    console.log("Publisher protocolo: ", useTLS ? "mqtts" : "mqtt");
 
     var endpointUrl = ENDPOINT_URLS[config.tier] || ENDPOINT_URLS.business;
     var token = config.token;
@@ -30,11 +34,7 @@ module.exports = function(RED) {
       port: useTLS ? portTLS : port,
       cert: useTLS ? certificate : undefined,
       protocol: useTLS ? "mqtts" : "mqtt",
-      keepAlive: 60,
-      clean: true,
-      reschedulePings: true,
-      connectTimeout: 30000,
-      reconnectPeriod: 2000
+   
     });
 
     client.on("reconnect", function() {
@@ -56,7 +56,7 @@ module.exports = function(RED) {
     });
 
     client.on("error", function(msg) {
-      console.warn("Inside error function, msg: ", msg);
+      console.warn("Publisher: Inside error function, msg: ", msg);
       self.status({
         fill: "red",
         shape: "ring",

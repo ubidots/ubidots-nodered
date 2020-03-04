@@ -197,6 +197,7 @@
       device_label: {
         value: ""
       },
+      tls_checkbox_in: { value: true },
       label_variable_1: {
         value: "",
         required: true
@@ -388,14 +389,14 @@
             if ($("#variable-" + l).is(":visible")) {
               $(genericCheckBoxString + l.toString()).prop("checked", true);
               var index = checkedVariables.indexOf(l);
-              console.log("l is "+l+" index is: ", index);
-              if(index<0){
+              console.log("l is " + l + " index is: ", index);
+              if (index < 0) {
                 checkedVariables.push(l);
               }
             }
             console.log("checkedVariables after select All ", checkedVariables);
           }
-          $("#delete-variables-button").attr("style", "margin-left:"+"230px");
+          $("#delete-variables-button").attr("style", "margin-left:" + "230px");
           $("#select-all-variables-button").html("Unselect All");
         } else {
           //Unselect All
