@@ -1,55 +1,63 @@
 {
-    "ubidots": {
-        "token": {
-            "label": "Token",
-            "placeholder": "Authentication Token"
-        },
-        "device_label": { "label": "Device", "placeholder": "Device label" },
-        "label_variable": { "label": "Variable", "placeholder": "Variable label" },
-        "tls": { "label": "Enable secure (SSL/TLS) connection", "certificate": "Certificate", "upload": "Upload" },
-        "varid": "Variable ID",
-        "name": "Name",
-        "connecting": "Connecting...",
-        "connected": "Connected",
-        "error_connecting": "Error connecting...",
-        "custom_topics":"Use custom topics",
-        "select_tier": "Account Type",
-        "variables": {
-            "add": "Add Variable",
-            "remove": "Remove Variable",
-            "delete": "Delete variable(s)",
-            "selectAll": "Select All",
-            "unselectAll": "Unselect All",
-            "variable2": "Variable 2",
-            "placeholder2": "Variable Label 2",
-            "variable3": "Variable 3",
-            "placeholder3": "Variable Label 3",
-            "variable4": "Variable 4",
-            "placeholder4": "Variable Label 4",
-            "variable5": "Variable 5",
-            "placeholder5": "Variable Label 5",
-            "variable6": "Variable 6",
-            "placeholder6": "Variable Label 6",
-            "variable7": "Variable 7",
-            "placeholder7": "Variable Label 7",
-            "variable8": "Variable 8",
-            "placeholder8": "Variable Label 8",
-            "variable9": "Variable 9",
-            "placeholder9": "Variable Label 9",
-            "variable10": "Variable 10",
-            "placeholder10": "Variable Label 10"
-        },
-        "numbers": {
-            "1": 1,
-            "2": 2,
-            "3": 3,
-            "4": 4,
-            "5": 5,
-            "6": 6,
-            "7": 7,
-            "8": 8,
-            "9": 9,
-            "10": 10
-        }
+  "ubidots": {
+    "token": {
+      "label": "Token",
+      "placeholder": "Authentication Token"
+    },
+    "device_label": { "label": "Device", "placeholder": "Device label" },
+    "label_variable": { "label": "Variable", "placeholder": "Variable label" },
+    "tls": {
+      "label": "Enable secure (SSL/TLS) connection",
+      "certificate": "Certificate",
+      "upload": "Upload"
+    },
+    "varid": "Variable ID",
+    "name": "Name",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "error_connecting": "Error connecting...",
+    "custom_topics": "Use custom topics",
+    "select_tier": "Account Type",
+    "customTopics": {
+      "variable1": "Custom Topic"
+    },
+    "lastValue": "Last value",
+    "variables": {
+      "add": "Add Variable",
+      "remove": "Remove Variable",
+      "delete": "Delete variable(s)",
+      "selectAll": "Select All",
+      "unselectAll": "Unselect All",
+      "variable2": "Variable 2",
+      "placeholder2": "Variable Label 2",
+      "variable3": "Variable 3",
+      "placeholder3": "Variable Label 3",
+      "variable4": "Variable 4",
+      "placeholder4": "Variable Label 4",
+      "variable5": "Variable 5",
+      "placeholder5": "Variable Label 5",
+      "variable6": "Variable 6",
+      "placeholder6": "Variable Label 6",
+      "variable7": "Variable 7",
+      "placeholder7": "Variable Label 7",
+      "variable8": "Variable 8",
+      "placeholder8": "Variable Label 8",
+      "variable9": "Variable 9",
+      "placeholder9": "Variable Label 9",
+      "variable10": "Variable 10",
+      "placeholder10": "Variable Label 10"
+    },
+    "numbers": {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "10": 10
     }
+  }
 }
