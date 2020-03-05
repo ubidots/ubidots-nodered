@@ -3,10 +3,16 @@ module.exports = function(RED) {
   var fs = require("fs");
   var path = require("path");
 
-  function getClient(self, useTLS, endpointUrl, labelDevice, labelVariable, token) {
+  function getClient(
+    self,
+    topics,
+    useTLS,
+    endpointUrl,
+    labelDevice,
+    labelVariable,
+    token
+  ) {
     self.status({ fill: "green", shape: "ring", text: "ubidots.connecting" });
-
-    console.log("Client useTLS", useTLS);
     var URL_PREFIX = "mqtt://";
     var port = 1883;
     var portTLS = 8883;
@@ -15,21 +21,21 @@ module.exports = function(RED) {
       "utf8",
       function() {}
     );
-  console.log("Client certificate: ", certificate);
-  console.log("Client port: ", useTLS ? portTLS : port,);
-  console.log("Client cert: ",useTLS ? certificate : undefined);
-  console.log("Client protocolo: ", useTLS ? "mqtts" : "mqtt");
+    //console.log("Client certificate: ", certificate);
+    //console.log("Client port: ", useTLS ? portTLS : port,);
+    //console.log("Client cert: ",useTLS ? certificate : undefined);
+    //console.log("Client protocolo: ", useTLS ? "mqtts" : "mqtt");
 
     var client = mqtt.connect(URL_PREFIX + endpointUrl, {
       username: token,
       password: "",
       port: useTLS ? portTLS : port,
       cert: useTLS ? certificate : undefined,
-      protocol: useTLS ? "mqtts" : "mqtt",
-
+      protocol: useTLS ? "mqtts" : "mqtt"
     });
 
     client.on("error", function() {
+      console.log("client inside client error function");
       client.end(true, function() {});
       self.status({
         fill: "red",
@@ -44,19 +50,17 @@ module.exports = function(RED) {
 
     client.on("reconnect", function() {
       console.log("Client reconnecting");
-      var topic = "/v1.6/devices/" + labelDevice + "/" + labelVariable;
-      var options = {};
-
+      var options = { qos: 1 };
       self.status({
         fill: "yellow",
         shape: "ring",
         text: "ubidots.connecting"
       });
-      options[topic] = 1;
 
-      client.subscribe(options, function() {
+      client.subscribe(topics, options, function() {
         try {
           client.on("message", function(topic, message, packet) {
+            console.log("Client sending message:", message);
             self.emit("input", { payload: JSON.parse(message.toString()) });
           });
         } catch (e) {
@@ -71,17 +75,16 @@ module.exports = function(RED) {
 
     client.on("connect", function() {
       console.log("Client connected");
-      var topic = "/v1.6/devices/" + labelDevice + "/" + labelVariable;
-      var options = {};
-      // console.log("Client, topic: ", topic);
-      // console.log("Client, options: ", options);
+      var options = { qos: 1 };
       self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
-      options[topic] = 1;
+      console.log("topics before subscribing: ", topics);
 
-      client.subscribe(options, function() {
+      client.subscribe(topics, options, function(err, granted) {
+        console.log("Client subscribe, granted", granted);
         try {
           client.on("message", function(topic, message, packet) {
-            console.log("Message ", message.toString());
+            console.log("Client emitting Message ", message.toString());
+            console.log("topic: ", topic);
             self.emit("input", { payload: JSON.parse(message.toString()) });
           });
         } catch (e) {
@@ -97,7 +100,7 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-      console.log("Ubidots_in CONFIG: ", config);
+    console.log("Ubidots_in CONFIG: ", config);
     var self = this;
     var ENDPOINTS_URLS = {
       business: "industrial.api.ubidots.com",
@@ -111,7 +114,18 @@ module.exports = function(RED) {
     var endpointUrl = ENDPOINTS_URLS[config.tier] || ENDPOINTS_URLS.business;
     var token = config.token;
 
-    getClient(self, useTLS, endpointUrl, labelDevice, labelVariable, token);
+    var topics = {};
+    topics = getSubscribePaths(config);
+
+    getClient(
+      self,
+      topics,
+      useTLS,
+      endpointUrl,
+      labelDevice,
+      labelVariable,
+      token
+    );
 
     this.on("error", function(msg) {
       console.log("Client: Inside error function", msg);
@@ -130,21 +144,57 @@ module.exports = function(RED) {
         self.client.end(true, function() {});
       }
     });
-
-    this.on("input", function(msg, send, done) {
-      
-
-
-      try {
-        send(msg);
-      } catch (err) {
-        this.error(err, msg);
-      }
-      if (done) {
-        done();
-      }
-    });
   }
 
   RED.nodes.registerType("ubidots_in", UbidotsNode);
 };
+
+function getSubscribePaths(config) {
+  var paths = [];
+  var labelString = "label_variable_";
+  var completeLabelString = "";
+  var checkboxString = "checkbox_variable_";
+  var checkboxString2 = "_last_value";
+  var completeCheckboxString = "";
+  //use customtopics
+  if (config.custom_topic_checkbox) {
+    console.log("USE custom topics");
+    for (var i = 1; i < 11; i++) {
+      completeLabelString = labelString + i.toString();
+      if (!(config[completeLabelString] === "")) {
+        paths.push('/v1.6/devices/'+config[completeLabelString]);
+      }
+    }
+  } else {
+    console.log("NO custom topics");
+    for (var i = 1; i < 11; i++) {
+      completeLabelString = labelString + i.toString();
+      completeCheckboxString = checkboxString + i.toString() + checkboxString2;
+      if (!(config[completeLabelString] === "")) {
+        //last Value is true
+        //if last value checkbox is checked
+        if (config[completeCheckboxString]) {
+          paths.push(
+            "/v1.6/devices/" +
+              config.device_label +
+              "/" +
+              config[completeLabelString] +
+              "/lv"
+          );
+        } else {
+          paths.push(
+            "/v1.6/devices/" +
+              config.device_label +
+              "/" +
+              config[completeLabelString]
+          );
+        }
+      }
+    }
+  }
+
+  //If it's custom topics set up array of strings and send it to client subscribe method
+
+  console.log("Inside getSubscribePaths, paths", paths);
+  return paths;
+}

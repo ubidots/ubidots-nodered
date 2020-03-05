@@ -5,7 +5,7 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    console.log("Config ubidots_out: ", config);
+    //console.log("Config ubidots_out: ", config);
     var self = this;
     var ENDPOINT_URLS = {
       business: "industrial.api.ubidots.com",
@@ -21,10 +21,10 @@ module.exports = function(RED) {
       "utf8",
       function() {}
     );
-    console.log("certificate: ", certificate);
-    console.log("Publisher port: ", useTLS ? portTLS : port);
-    console.log("Publisher cert: ", useTLS ? certificate : undefined);
-    console.log("Publisher protocolo: ", useTLS ? "mqtts" : "mqtt");
+    //console.log("certificate: ", certificate);
+    //console.log("Publisher port: ", useTLS ? portTLS : port);
+    //console.log("Publisher cert: ", useTLS ? certificate : undefined);
+    //console.log("Publisher protocolo: ", useTLS ? "mqtts" : "mqtt");
 
     var endpointUrl = ENDPOINT_URLS[config.tier] || ENDPOINT_URLS.business;
     var token = config.token;
