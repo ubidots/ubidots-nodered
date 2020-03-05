@@ -21,10 +21,6 @@ module.exports = function(RED) {
       "utf8",
       function() {}
     );
-    //console.log("Client certificate: ", certificate);
-    //console.log("Client port: ", useTLS ? portTLS : port,);
-    //console.log("Client cert: ",useTLS ? certificate : undefined);
-    //console.log("Client protocolo: ", useTLS ? "mqtts" : "mqtt");
 
     var client = mqtt.connect(URL_PREFIX + endpointUrl, {
       username: token,
@@ -76,18 +72,21 @@ module.exports = function(RED) {
     client.on("connect", function() {
       console.log("Client connected");
       var options = { qos: 1 };
-      self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
-      console.log("topics before subscribing: ", topics);
 
+      self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
       client.subscribe(topics, options, function(err, granted) {
         console.log("Client subscribe, granted", granted);
         try {
           client.on("message", function(topic, message, packet) {
-            console.log("Client emitting Message ", message.toString());
+            console.log(
+              "Client emitting Message: ",
+              JSON.parse(message.toString())
+            );
             console.log("topic: ", topic);
             self.emit("input", { payload: JSON.parse(message.toString()) });
           });
         } catch (e) {
+          console.log("Error when trying to emit: ", e);
           self.status({
             fill: "red",
             shape: "ring",
@@ -144,6 +143,20 @@ module.exports = function(RED) {
         self.client.end(true, function() {});
       }
     });
+
+    this.on("input", function(msg, send, done) {
+      console.log("Inside Client Send Method", msg);
+      try {
+        send(msg);
+      } catch (err) {
+        console.log("Error in client when sending data to debug node,",err);
+        this.error(err, msg);
+      }
+      if (done) {
+        console.log("Client is DONE");
+        done();
+      }
+    });
   }
 
   RED.nodes.registerType("ubidots_in", UbidotsNode);
@@ -161,8 +174,9 @@ function getSubscribePaths(config) {
     console.log("USE custom topics");
     for (var i = 1; i < 11; i++) {
       completeLabelString = labelString + i.toString();
+      console.log("custom topic labelString: ", completeLabelString);
       if (!(config[completeLabelString] === "")) {
-        paths.push('/v1.6/devices/'+config[completeLabelString]);
+        paths.push("/v1.6/devices/" + config[completeLabelString]);
       }
     }
   } else {
@@ -173,7 +187,9 @@ function getSubscribePaths(config) {
       if (!(config[completeLabelString] === "")) {
         //last Value is true
         //if last value checkbox is checked
+
         if (config[completeCheckboxString]) {
+          console.log("Last Value CHECKED");
           paths.push(
             "/v1.6/devices/" +
               config.device_label +
@@ -192,9 +208,6 @@ function getSubscribePaths(config) {
       }
     }
   }
-
-  //If it's custom topics set up array of strings and send it to client subscribe method
-
   console.log("Inside getSubscribePaths, paths", paths);
   return paths;
 }

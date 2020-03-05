@@ -273,9 +273,89 @@
           ).prop("checked", true);
         }
       }
+
+      if ($("#node-input-custom_topic_checkbox").is(":checked")) {
+        for (var i = 1; i < 11; i++) {
+          $(
+            "#node-input-checkbox_variable_" + i.toString() + "_last_value"
+          ).hide();
+          $("#node-input-last-value-label-" + i.toString()).hide();
+          $("#node-input-label_variable_" + i.toString()).attr(
+            "placeholder",
+            "Topic123 " + i
+          );
+          $("#node-input-label_variable_" + i.toString()).attr(
+            "style",
+            "width:" + "calc(100% - 115px)"
+          );
+        }
+      }else{
+        $("#node-input-variable-1-space").show();
+        for (var i = 1; i < 11; i++) {
+          $(
+            "#node-input-checkbox_variable_" + i.toString() + "_last_value"
+          ).show();
+          $("#node-input-last-value-label-" + i.toString()).show();
+          $("#node-input-label_variable_" + i.toString()).attr(
+            "placeholder",
+            "Variable Label " + i
+          );
+          $("#node-input-label_variable_" + i.toString()).attr(
+            "style",
+            "width:" + "calc(100% - 250px)"
+          );
+        }
+      }
+
       $("#delete-variables-button").hide();
       $("#select-all-variables-button").hide();
-      $("#node-input-variable-1-space").hide();
+      $("#node-input-custom_topic_checkbox").on("click", function() {
+        //checkbox is checked
+        if ($("#node-input-custom_topic_checkbox").is(":checked")) {
+          for (var i = 1; i < 11; i++) {
+            //Changing Placeholders to "Topic"
+
+            $("#node-input-label_variable_" + i).attr(
+              "placeholder",
+              "Topic " + i
+            );
+            //Changing input size
+            $("#node-input-label_variable_" + i).attr(
+              "style",
+              "width:" + "calc(100% - 115px)"
+            );
+            //hiding last value
+            $(
+              "#node-input-checkbox_variable_" + i.toString() + "_last_value"
+            ).hide();
+            $("#node-input-last-value-label-" + i.toString()).hide();
+          }
+          $("#node-input-label_variable_1").attr(
+            "style",
+            "width:" + "calc(100% - 115px)"
+          );
+          $("#node-input-variable-1-space").show();
+        } else {
+          //checkbox unchecked
+          for (var i = 1; i < 11; i++) {
+            $("#node-input-label_variable_" + i).attr(
+              "placeholder",
+              "Variable Label " + i
+            );
+            //Changing input size
+            $("#node-input-label_variable_" + i).attr(
+              "style",
+              "width:" + "calc(100% - 250px)"
+            );
+            //hiding last value
+            $(
+              "#node-input-checkbox_variable_" + i.toString() + "_last_value"
+            ).show();
+            $("#node-input-last-value-label-" + i).show();
+          }
+        }
+      });
+
       //Defining checkbox behaviour
       $("#ubidots-checkbox-variable-2").on("click", function() {
         manageCheckBoxes(this, 2);
@@ -351,47 +431,6 @@
         showAddButton();
       });
 
-      $("#node-input-custom_topic_checkbox").on("click", function() {
-        //checkbox is checked
-        if ($("#node-input-custom_topic_checkbox").is(":checked")) {
-          for (var i = 1; i < 11; i++) {
-            //Changing Placeholders to "Topic"
-            $("#node-input-label_variable_" + i).attr(
-              "placeholder",
-              "Topic " + i
-            );
-            //Changing input size
-            $("#node-input-label_variable_" + i).attr(
-              "style",
-              "width:" + "calc(100% - 115px)"
-            );
-            //hiding last value
-            $("#node-input-checkbox_variable_" + i.toString() + "_last_value").hide();
-            $("#node-input-last-value-label-" + i.toString()).hide();
-          }
-          $("#node-input-label_variable_1").attr(
-            "style",
-            "width:" + "calc(100% - 115px)"
-          );
-          $("#node-input-variable-1-space").show();
-        } else {
-          //checkbox unchecked
-          for (var i = 1; i < 11; i++) {
-            $("#node-input-label_variable_" + i).attr(
-              "placeholder",
-              "Variable Label " + i
-            );
-            //Changing input size
-            $("#node-input-label_variable_" + i).attr(
-              "style",
-              "width:" + "calc(100% - 250px)"
-            );
-            //hiding last value
-            $("#node-input-checkbox_variable_" + i.toString() + "_last_value").show();
-            $("#node-input-last-value-label-" + i).show();
-          }
-        }
-      });
       //Select All/Unselect All Button
       $("#select-all-variables-button").on("click", function() {
         //Select All
@@ -400,17 +439,14 @@
             .html()
             .toString() === "Select All"
         ) {
-          console.log("CheckedVariables: ", checkedVariables);
           for (var l = 2; l < 11; l++) {
             if ($("#variable-" + l).is(":visible")) {
               $(genericCheckBoxString + l.toString()).prop("checked", true);
               var index = checkedVariables.indexOf(l);
-              console.log("l is " + l + " index is: ", index);
               if (index < 0) {
                 checkedVariables.push(l);
               }
             }
-            console.log("checkedVariables after select All ", checkedVariables);
           }
           $("#delete-variables-button").attr("style", "margin-left:" + "210px");
           $("#select-all-variables-button").html("Unselect All");
@@ -431,12 +467,10 @@
             $("#select-all-variables-button").html("Select All");
             $("#delete-variables-button").attr("style", "margin-left:250px");
           }
-          console.log("checkedVariables: ", checkedVariables);
         }
       });
       //Delete Button
       $("#delete-variables-button").on("click", function() {
-        console.log("Inside Delete Button pressed");
         auxArray = Array.from(checkedVariables);
         for (var i = 0; i < auxArray.length; i++) {
           manageArrays(auxArray[i]);
@@ -447,14 +481,12 @@
       });
 
       function manageCheckBoxes(checkbox, number) {
-        console.log("CheckedVariables ", checkedVariables);
         if ($(checkbox).is(":checked")) {
           checkedVariables.push(number);
         } else {
           var index = checkedVariables.indexOf(number);
           checkedVariables.splice(index, 1);
         }
-        console.log("CheckedVariables ", checkedVariables);
       }
 
       function manageArrays(number) {
