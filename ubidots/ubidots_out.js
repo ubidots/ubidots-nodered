@@ -5,7 +5,6 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    //console.log("Config ubidots_out: ", config);
     var self = this;
     var ENDPOINT_URLS = {
       business: "industrial.api.ubidots.com",
@@ -34,7 +33,6 @@ module.exports = function(RED) {
     });
 
     client.on("reconnect", function() {
-      console.log("Publisher Reconnecting");
       self.status({
         fill: "yellow",
         shape: "ring",
@@ -70,9 +68,7 @@ module.exports = function(RED) {
         );
       } else {
         if (msg.payload.ubidotsDeviceLabel) {
-          //console.log("inside ubidotsDeviceLabel if");
           delete msg.payload.ubidotsDeviceLabel;
-          //console.log("Message after Deletion: ", msg.payload);
         }
         var values =
           typeof msg.payload !== "object" || msg.payload === null
@@ -82,7 +78,6 @@ module.exports = function(RED) {
         if (typeof values === "object") {
           values = JSON.stringify(values);
         }
-        //console.log("Message: ", values);
         try {
           client.publish(
             "/v1.6/devices/" + device_label,

@@ -140,7 +140,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="ubidots_in">
-  <p>Subscribes to up to 10 variables or topics from Ubidots and send them as a message to other nodes.</p>
+  <p>Subscribes to up to 10 variables or topics from Ubidots and sends them as a message to other nodes.</p>
 
   <p>
       Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> library to establish the connection and suscribe to the topic.
@@ -174,7 +174,7 @@
           </li>
           <li>
             <p>
-              <b>SSL: </b> By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
+              <b>SSL: </b> By default, all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
             </p>
           </li>
           <li>
@@ -198,13 +198,17 @@
             </p>
           </li>
       </ul>
-      <p>The output is a JSON object with the topic as key and the Last Value/data point object as value.
-      </p>
+      <p>The output is a JSON object with the topic as key and the Last Value/data point object as value, e.g.: <pre>{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
   </p>
 
   <p>
       Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
   </p>
+  <p>-----</p>
+  <p>
+    If you get the error: "TypeError: send is not a function", please run <code>npm update node-red</code> and reload Node-Red.
+  </p>
+
 </script>
 
 <script type="text/javascript">

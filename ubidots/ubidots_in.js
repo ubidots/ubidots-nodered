@@ -31,7 +31,7 @@ module.exports = function(RED) {
     });
 
     client.on("error", function() {
-      console.log("client inside client error function");
+      console.log("Client inside error function");
       client.end(true, function() {});
       self.status({
         fill: "red",
@@ -56,7 +56,6 @@ module.exports = function(RED) {
       client.subscribe(topics, options, function() {
         try {
           client.on("message", function(topic, message, packet) {
-            console.log("Client sending message:", message);
             self.emit("input", { payload: JSON.parse(message.toString()) });
           });
         } catch (e) {
@@ -75,14 +74,11 @@ module.exports = function(RED) {
 
       self.status({ fill: "green", shape: "dot", text: "ubidots.connected" });
       client.subscribe(topics, options, function(err, granted) {
-        console.log("Client subscribe, granted", granted);
         try {
           client.on("message", function(topic, message, packet) {
-            console.log("topic: ", topic);
             var shortTopic = topic.substring(14);
             var finalMessage = {};
             finalMessage[shortTopic] = JSON.parse(message.toString());
-            console.log("finalMessage Object:", finalMessage);
             // self.emit("input", { payload: JSON.parse(message.toString()) });
             self.emit("input", { payload: finalMessage });
           });
@@ -100,15 +96,12 @@ module.exports = function(RED) {
 
   function UbidotsNode(config) {
     RED.nodes.createNode(this, config);
-    console.log("Ubidots_in CONFIG: ", config);
     var self = this;
     var ENDPOINTS_URLS = {
       business: "industrial.api.ubidots.com",
       educational: "things.ubidots.com"
     };
     var useTLS = config.tls_checkbox_in;
-    console.log("useTLS ", useTLS);
-
     var labelDevice = config.device_label;
     var labelVariable = config["label_variable_1"];
     var endpointUrl = ENDPOINTS_URLS[config.tier] || ENDPOINTS_URLS.business;
@@ -146,8 +139,6 @@ module.exports = function(RED) {
     });
 
     this.on("input", function(msg, send, done) {
-      //console.log("Inside Client Send Method", msg);
-
       try {
         send(msg);
       } catch (err) {
@@ -172,16 +163,13 @@ function getSubscribePaths(config) {
   var completeCheckboxString = "";
   //use customtopics
   if (config.custom_topic_checkbox) {
-    console.log("USE custom topics");
     for (var i = 1; i < 11; i++) {
       completeLabelString = labelString + i.toString();
-      console.log("custom topic labelString: ", completeLabelString);
       if (!(config[completeLabelString] === "")) {
         paths.push("/v1.6/devices/" + config[completeLabelString]);
       }
     }
   } else {
-    console.log("NO custom topics");
     for (var i = 1; i < 11; i++) {
       completeLabelString = labelString + i.toString();
       completeCheckboxString = checkboxString + i.toString() + checkboxString2;
@@ -190,7 +178,6 @@ function getSubscribePaths(config) {
         //if last value checkbox is checked
 
         if (config[completeCheckboxString]) {
-          console.log("Last Value CHECKED");
           paths.push(
             "/v1.6/devices/" +
               config.device_label +
@@ -209,6 +196,5 @@ function getSubscribePaths(config) {
       }
     }
   }
-  console.log("Inside getSubscribePaths, paths", paths);
   return paths;
 }
