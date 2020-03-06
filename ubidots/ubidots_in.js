@@ -78,12 +78,13 @@ module.exports = function(RED) {
         console.log("Client subscribe, granted", granted);
         try {
           client.on("message", function(topic, message, packet) {
-            console.log(
-              "Client emitting Message: ",
-              JSON.parse(message.toString())
-            );
             console.log("topic: ", topic);
-            self.emit("input", { payload: JSON.parse(message.toString()) });
+            var shortTopic = topic.substring(14);
+            var finalMessage = {};
+            finalMessage[shortTopic] = JSON.parse(message.toString());
+            console.log("finalMessage Object:", finalMessage);
+            // self.emit("input", { payload: JSON.parse(message.toString()) });
+            self.emit("input", { payload: finalMessage });
           });
         } catch (e) {
           console.log("Error when trying to emit: ", e);
@@ -145,15 +146,15 @@ module.exports = function(RED) {
     });
 
     this.on("input", function(msg, send, done) {
-      console.log("Inside Client Send Method", msg);
+      //console.log("Inside Client Send Method", msg);
+
       try {
         send(msg);
       } catch (err) {
-        console.log("Error in client when sending data to debug node,",err);
+        console.log("Error in client when sending data to debug node,", err);
         this.error(err, msg);
       }
       if (done) {
-        console.log("Client is DONE");
         done();
       }
     });
