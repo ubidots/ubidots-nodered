@@ -8,7 +8,7 @@
         "label_variable": {
             "label": "Variable Label"
         },
-        "tls": { "label": "Enable secure (SSL/TLS) connection", "certificate": "Certificate", "upload": "Upload" },
+        "tls": { "label": "Enable secure TLS connection", "certificate": "Certificate", "upload": "Upload" },
         "varid": "Variable ID",
         "name": "Name",
         "select_tier": "Account Type",

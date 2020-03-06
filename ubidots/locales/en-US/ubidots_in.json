@@ -7,7 +7,7 @@
     "device_label": { "label": "Device", "placeholder": "Device label" },
     "label_variable": { "label": "Variable", "placeholder": "Variable label" },
     "tls": {
-      "label": "Enable secure (SSL/TLS) connection",
+      "label": "Enable secure TLS connection",
       "certificate": "Certificate",
       "upload": "Upload"
     },

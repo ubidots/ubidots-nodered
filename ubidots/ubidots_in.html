@@ -130,8 +130,7 @@
       <hr>
       <!-- Add Button -->
       <div id="add-button" class="form-row" style="margin-top:10px">
-          <label style="width: calc(30%)" for="ubidots-add-variable-button">
-              <span data-i18n="ubidots.variables.add"></span>
+          <label style="width: calc(30%)" id="ubidots-add-variable-button-label" for="ubidots-add-variable-button">
           </label>
           <span  style="width: calc(15%)">
          <button class="red-ui-button" id="ubidots-add-variable-button"><i class="fa fa-plus"></i></button>
@@ -275,6 +274,8 @@
       }
 
       if ($("#node-input-custom_topic_checkbox").is(":checked")) {
+        console.log("Inside Custom Topic Checkbox");
+        //Custom Topics selected
         for (var i = 1; i < 11; i++) {
           $(
             "#node-input-checkbox_variable_" + i.toString() + "_last_value"
@@ -289,7 +290,10 @@
             "width:" + "calc(100% - 115px)"
           );
         }
+        console.log("Before setting button label to topic");
+        $("#ubidots-add-variable-button-label").text("Add Topic");
       }else{
+        //No Custom Topics --> Variables
         $("#node-input-variable-1-space").show();
         for (var i = 1; i < 11; i++) {
           $(
@@ -305,6 +309,7 @@
             "width:" + "calc(100% - 250px)"
           );
         }
+        $("#ubidots-add-variable-button-label").text("Add Variable");
       }
 
       $("#delete-variables-button").hide();
@@ -329,6 +334,7 @@
               "#node-input-checkbox_variable_" + i.toString() + "_last_value"
             ).hide();
             $("#node-input-last-value-label-" + i.toString()).hide();
+            $("#ubidots-add-variable-button-label").text("Add Topic");
           }
           $("#node-input-label_variable_1").attr(
             "style",
@@ -352,6 +358,7 @@
               "#node-input-checkbox_variable_" + i.toString() + "_last_value"
             ).show();
             $("#node-input-last-value-label-" + i).show();
+            $("#ubidots-add-variable-button-label").text("Add Variable");
           }
         }
       });
@@ -465,7 +472,7 @@
               }
             }
             $("#select-all-variables-button").html("Select All");
-            $("#delete-variables-button").attr("style", "margin-left:250px");
+            $("#delete-variables-button").attr("style", "margin-left:240px");
           }
         }
       });
