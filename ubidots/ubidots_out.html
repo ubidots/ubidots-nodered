@@ -49,22 +49,36 @@
     <p>
         Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> library to make the connection and publish the packet.
     </p>
-
-  <p>
-    <b> Account Type: </b>Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
-  </p>
-  <p>
-    <b> Name: </b> Label of node in Node-Red workspace. If empty, defaults to :"ubidots out".
-  </p>
-  <p>
-    <b> Token: </b> (required) - Token necessary to authenticate the connection to your account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank">ubidots.com</a>, under "My Profile" click on "API Credentials".
-  </p>
-  <p>
-    <b>Device Label: </b> The name of the Device to which the data will be published. If no Device exists with this label, it will be automatically created. Can be sent dynamically in the message JSON object with the key: "ubidotsDeviceLabel". If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
     <p>
-  <p>
-    <b>SSL: </b> By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
-  </p>
+      Double click on the node to configure all the required fields.
+    </p>
+  <ul>
+    <li>  
+      <p>
+        <b> Account Type: </b>Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
+      </p>
+    </li>
+    <li>
+      <p>
+        <b> Name: </b> Label of node in Node-Red workspace. If empty, defaults to :"Ubidots out".
+      </p>
+    </li>
+    <li>
+      <p>
+        <b> Token: </b> (required) - Token necessary to authenticate the connection to your account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank">Tutorial</a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <b>Device Label: </b> The name of the Device to which the data will be published. If no Device exists with this label, it will be automatically created. Can be sent dynamically in the message JSON object with the key: "ubidotsDeviceLabel". If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
+      <p>
+    </li>
+    <li>
+      <p>
+        <b>SSL: </b> By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
+      </p>
+    </li>  
+  </ul>
         The message can contain the following properties:<br />
 
         <ul>
@@ -112,7 +126,7 @@
     icon: "ubidots.png",
 
     label: function() {
-      return this.name || this.to || "ubidots out";
+      return this.name || this.to || "Ubidots out";
     },
     labelStyle: function() {
       return this.name ? "node_label_italic" : "";
