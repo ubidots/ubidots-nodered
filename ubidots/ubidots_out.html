@@ -47,7 +47,7 @@
     <p>Receives a message and uses its values to publish a request to the Ubidots API via MQTT.</p>
 
     <p>
-        Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> library to make the connection and publish the packet.
+        Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener noreferrer">MQTT</a> library to make the connection and publish the packet.
     </p>
     <p>
       Double click on the node to configure all the required fields.
@@ -65,7 +65,7 @@
     </li>
     <li>
       <p>
-        <b> Token: </b> (required) - Token necessary to authenticate the connection to your account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank">Tutorial</a>
+        <b> Token: </b> (required) - Token necessary to authenticate the connection to your account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank" rel="noopener noreferrer">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank" rel="noopener noreferrer">Tutorial</a>
       </p>
     </li>
     <li>
@@ -96,7 +96,7 @@
     </p>
 
     <p>
-        Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
+        Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank" rel="noopener noreferrer">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
     </p>
 </script>
 
@@ -109,8 +109,7 @@
         value: ""
       },
       token: {
-        value: "",
-        required: true
+        value: ""
       },
       label_device: { value: "" },
       device_label: {
@@ -130,10 +129,6 @@
     },
     labelStyle: function() {
       return this.name ? "node_label_italic" : "";
-    },
-    oneditprepare: function() {},
-    oneditsave: function() {
-      console.log("Inside OUT edit Save");
     }
   });
 </script>

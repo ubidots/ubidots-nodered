@@ -16,7 +16,7 @@ module.exports = function(RED) {
     var port = 1883;
     var portTLS = 8883;
     var certificate = fs.readFileSync(
-      path.join(__dirname, "./certificate.pem"),
+      path.join(__dirname, "../keys/certificate.pem"),
       "utf8",
       function() {}
     );

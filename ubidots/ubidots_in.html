@@ -26,7 +26,7 @@
           <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
       </div>
 
-      <div class="form-row">
+      <div id="device_label" class="form-row">
           <label for="node-input-device_label">
         <i class="fa fa-tag"></i>
         <span data-i18n="ubidots.device_label.label"></span>
@@ -52,14 +52,14 @@
       <div id="variable-1" class="form-row" style="margin-bottom:10px">
         <label style="width:24px" id=node-input-variable-1-space></label>
          <input type="text" style="width: calc(100% - 250px); margin-left:28px" id="node-input-label_variable_1" />
-         <input type="checkbox" checked id="node-input-checkbox_variable_1_last_value" style="display: inline-block; margin-right:10px; margin-left:15px; width: auto; vertical-align: center;">
+         <input class="variable__lastValueCheckbox" type="checkbox" checked id="node-input-checkbox_variable_1_last_value" >
           <label id="node-input-last-value-label-1" style="width: 89px" data-i18n="ubidots.lastValue"></label>
       </div>
       <!-- VARIABLES 2-->
       <div id="variable-2" class="form-row" >
           <input type="checkbox" id="ubidots-checkbox-variable-2" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
           <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_2" />
-          <input type="checkbox" checked id="node-input-checkbox_variable_2_last_value" style="display: inline-block; margin-right:10px; margin-left:15px; width: auto; vertical-align: center;">
+          <input type="checkbox" checked id="node-input-checkbox_variable_2_last_value" class="variable__lastValueCheckbox">
           <label id="node-input-last-value-label-2" style="width: 89px" data-i18n="ubidots.lastValue"></label>
           <button class="red-ui-button" id="ubidots-variable-button-key-clear-2" style="margin-left:15px"><i style="color:#525050"class="fa fa-times"></i></button>
       </div>
@@ -143,7 +143,7 @@
   <p>Subscribes to up to 10 variables or topics from Ubidots and sends them as a message to other nodes.</p>
 
   <p>
-      Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> library to establish the connection and suscribe to the topic.
+      Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener noreferrer">MQTT</a> library to establish the connection and suscribe to the topic.
   </p>
 
   <p>
@@ -185,8 +185,8 @@
           <li>
             <p>
               <b>Variable Label: </b> (required) - The name of the Variable the node subscribes to.
-            </p>  
-          </li>  
+            </p>
+          </li>
           <li>
             <p>
               <b>Last Value: </b> By default, the node subscribes to the Last Value of the variable. Uncheck to subscribe to the complete data point object.
@@ -204,64 +204,62 @@
   <p>
       Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
   </p>
-  <p>-----</p>
+  <hr>
   <p>
-    If you get the error: "TypeError: send is not a function", please run <code>npm update node-red</code> and reload Node-Red.
+    <pre>If you get the error: "TypeError: send is not a function", please run <code>npm update node-red</code> and reload Node-Red.</pre>
   </p>
-
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType("ubidots_in", {
-    category: "input",
-    color: "#5996F7",
+  RED.nodes.registerType('ubidots_in', {
+    category: 'input',
+    color: '#5996F7',
     defaults: {
       tier: {
-        value: "business"
+        value: 'business'
       },
       name: {
-        value: "",
+        value: 'Ubidots in',
         required: true
       },
       token: {
-        value: "",
-        required: true
+        value: ''
       },
       device_label: {
-        value: ""
+        value: ''
       },
       tls_checkbox_in: { value: true },
       custom_topic_checkbox: { value: false },
       label_variable_1: {
-        value: "",
+        value: '',
         required: true
       },
       label_variable_2: {
-        value: ""
+        value: ''
       },
       label_variable_3: {
-        value: ""
+        value: ''
       },
       label_variable_4: {
-        value: ""
+        value: ''
       },
       label_variable_5: {
-        value: ""
+        value: ''
       },
       label_variable_6: {
-        value: ""
+        value: ''
       },
       label_variable_7: {
-        value: ""
+        value: ''
       },
       label_variable_8: {
-        value: ""
+        value: ''
       },
       label_variable_9: {
-        value: ""
+        value: ''
       },
       label_variable_10: {
-        value: ""
+        value: ''
       },
       checkbox_variable_1_last_value: { value: true },
       checkbox_variable_2_last_value: { value: true },
@@ -277,241 +275,237 @@
     inputs: 0,
     outputs: 1,
 
-    icon: "ubidots.png",
+    icon: 'ubidots.png',
     label: function() {
-      return this.name || this.to || "Ubidots in";
+      return this.name || this.to || 'Ubidots in';
     },
     labelStyle: function() {
-      return this.name ? "node_label_italic" : "";
+      return this.name ? 'node_label_italic' : '';
     },
-    oneditcancel: function() {},
 
-    oneditsave: function() {},
     oneditprepare: function() {
-      var variablesActivos = [];
-      var variablesDesactivados = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-      var checkedVariables = [];
-      var auxArray = [];
-      var genericString = "#variable-";
-      var genericCheckBoxString = "#ubidots-checkbox-variable-";
-      var genericLastValueCheckBoxString = "#node-input-checkbox_variable_";
-      var lastValueString = "_last_value";
+      let activeVariables = [];
+      let inactiveVariables = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+      let checkedVariables = [];
+      let auxArray = [];
+      let genericString = '#variable-';
+      let genericCheckBoxString = '#ubidots-checkbox-variable-';
+      let genericLastValueCheckBoxString = '#node-input-checkbox_variable_';
+      let lastValueString = '_last_value';
 
       //hide/show extra variables by default
-      for (var h = 2; h < 11; h++) {
-        if (!$("#node-input-label_variable_" + h).val()) {
-          $("#variable-" + h).hide();
-          $(
-            "#node-input-checkbox_variable_" + h.toString() + "_last_value"
-          ).prop("checked", true);
+      for (let i = 2; i < 11; i++) {
+        if (!$('#node-input-label_variable_' + i).val()) {
+          $(`#variable-${i}`).hide();
+          $(`#node-input-checkbox_variable_${i}_last_value`).prop(
+            'checked',
+            true
+          );
+          //"#node-input-checkbox_variable_" + i + "_last_value"
         }
       }
 
-      if ($("#node-input-custom_topic_checkbox").is(":checked")) {
+      if ($('#node-input-custom_topic_checkbox').is(':checked')) {
         //Custom Topics selected
-        for (var i = 1; i < 11; i++) {
-          $(
-            "#node-input-checkbox_variable_" + i.toString() + "_last_value"
-          ).hide();
-          $("#node-input-last-value-label-" + i.toString()).hide();
-          $("#node-input-label_variable_" + i.toString()).attr(
-            "placeholder",
-            "Topic " + i
+        $('#device_label').hide();
+        for (let i = 1; i < 11; i++) {
+          $('#node-input-checkbox_variable_' + i + '_last_value').hide();
+          $('#node-input-last-value-label-' + i).hide();
+          $(`#node-input-label_variable_${i}`).attr(
+            'placeholder',
+            'Topic ' + i
           );
-          $("#node-input-label_variable_" + i.toString()).attr(
-            "style",
-            "width:" + "calc(100% - 115px)"
+          $(`#node-input-label_variable_${i}`).attr(
+            'style',
+            'width:' + 'calc(100% - 115px)'
           );
         }
-        $("#ubidots-add-variable-button-label").text("Add Topic");
+        $('#ubidots-add-variable-button-label').text('Add Topic');
       } else {
         //No Custom Topics --> Variables
-        $("#node-input-variable-1-space").show();
-        for (var i = 1; i < 11; i++) {
-          $(
-            "#node-input-checkbox_variable_" + i.toString() + "_last_value"
-          ).show();
-          $("#node-input-last-value-label-" + i.toString()).show();
-          $("#node-input-label_variable_" + i.toString()).attr(
-            "placeholder",
-            "Variable Label " + i
+        $('#device_label').show();
+        $('#node-input-variable-1-space').show();
+        for (let i = 1; i < 11; i++) {
+          $(`#node-input-checkbox_variable_${i}_last_value`).show();
+          $(`#node-input-last-value-label-${i}`).show();
+          $(`#node-input-label_variable_${i}`).attr(
+            'placeholder',
+            'Variable Label ' + i
           );
-          $("#node-input-label_variable_" + i.toString()).attr(
-            "style",
-            "width:" + "calc(100% - 250px)"
+          $(`#node-input-label_variable_${i}`).attr(
+            'style',
+            'width:' + 'calc(100% - 250px)'
           );
         }
-        $("#ubidots-add-variable-button-label").text("Add Variable");
+        $('#ubidots-add-variable-button-label').text('Add Variable');
       }
 
-      $("#delete-variables-button").hide();
-      $("#select-all-variables-button").hide();
-      $("#node-input-custom_topic_checkbox").on("click", function() {
+      $('#delete-variables-button').hide();
+      $('#select-all-variables-button').hide();
+      $('#node-input-custom_topic_checkbox').on('click', function() {
         //checkbox is checked
-        if ($("#node-input-custom_topic_checkbox").is(":checked")) {
-          for (var i = 1; i < 11; i++) {
+        if ($('#node-input-custom_topic_checkbox').is(':checked')) {
+          $('#device_label').hide();
+          for (let i = 1; i < 11; i++) {
             //Changing Placeholders to "Topic"
 
-            $("#node-input-label_variable_" + i).attr(
-              "placeholder",
-              "Topic " + i
+            $(`#node-input-label_variable_${i}`).attr(
+              'placeholder',
+              'Topic ' + i
             );
             //Changing input size
-            $("#node-input-label_variable_" + i).attr(
-              "style",
-              "width:" + "calc(100% - 115px)"
+            $(`#node-input-label_variable_${i}`).attr(
+              'style',
+              'width:' + 'calc(100% - 115px)'
             );
             //hiding last value
-            $(
-              "#node-input-checkbox_variable_" + i.toString() + "_last_value"
-            ).hide();
-            $("#node-input-last-value-label-" + i.toString()).hide();
-            $("#ubidots-add-variable-button-label").text("Add Topic");
+            $(`#node-input-checkbox_variable_${i}_last_value`).hide();
+            $(`#node-input-last-value-label-${i}`).hide();
+            $('#ubidots-add-variable-button-label').text('Add Topic');
           }
-          $("#node-input-label_variable_1").attr(
-            "style",
-            "width:" + "calc(100% - 115px)"
+          $('#node-input-label_variable_1').attr(
+            'style',
+            'width:' + 'calc(100% - 115px)'
           );
-          $("#node-input-variable-1-space").show();
+          $('#node-input-variable-1-space').show();
         } else {
           //checkbox unchecked
-          for (var i = 1; i < 11; i++) {
-            $("#node-input-label_variable_" + i).attr(
-              "placeholder",
-              "Variable Label " + i
+          $('#device_label').show();
+          for (let i = 1; i < 11; i++) {
+            $(`#node-input-label_variable_${i}`).attr(
+              'placeholder',
+              'Variable Label ' + i
             );
             //Changing input size
-            $("#node-input-label_variable_" + i).attr(
-              "style",
-              "width:" + "calc(100% - 250px)"
+            $(`#node-input-label_variable_${i}`).attr(
+              'style',
+              'width:' + 'calc(100% - 250px)'
             );
             //hiding last value
-            $(
-              "#node-input-checkbox_variable_" + i.toString() + "_last_value"
-            ).show();
-            $("#node-input-last-value-label-" + i).show();
-            $("#ubidots-add-variable-button-label").text("Add Variable");
+            $(`#node-input-checkbox_variable_${i}_last_value`).show();
+            $(`#node-input-last-value-label-${i}`).show();
+            $('#ubidots-add-variable-button-label').text('Add Variable');
           }
         }
       });
 
       //Defining checkbox behaviour
-      $("#ubidots-checkbox-variable-2").on("click", function() {
+      $('#ubidots-checkbox-variable-2').on('click', function() {
         manageCheckBoxes(this, 2);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-3").on("click", function() {
+      $('#ubidots-checkbox-variable-3').on('click', function() {
         manageCheckBoxes(this, 3);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-4").on("click", function() {
+      $('#ubidots-checkbox-variable-4').on('click', function() {
         manageCheckBoxes(this, 4);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-5").on("click", function() {
+      $('#ubidots-checkbox-variable-5').on('click', function() {
         manageCheckBoxes(this, 5);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-6").on("click", function() {
+      $('#ubidots-checkbox-variable-6').on('click', function() {
         manageCheckBoxes(this, 6);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-7").on("click", function() {
+      $('#ubidots-checkbox-variable-7').on('click', function() {
         manageCheckBoxes(this, 7);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-8").on("click", function() {
+      $('#ubidots-checkbox-variable-8').on('click', function() {
         manageCheckBoxes(this, 8);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-9").on("click", function() {
+      $('#ubidots-checkbox-variable-9').on('click', function() {
         manageCheckBoxes(this, 9);
         showDeleteButton();
       });
-      $("#ubidots-checkbox-variable-10").on("click", function() {
+      $('#ubidots-checkbox-variable-10').on('click', function() {
         manageCheckBoxes(this, 10);
         showDeleteButton();
       });
 
       //Defining clear buttons
-      $("#ubidots-variable-button-key-clear-2").on("click", function() {
+      $('#ubidots-variable-button-key-clear-2').on('click', function() {
         manageArrays(2);
       });
-      $("#ubidots-variable-button-key-clear-3").on("click", function() {
+      $('#ubidots-variable-button-key-clear-3').on('click', function() {
         manageArrays(3);
       });
-      $("#ubidots-variable-button-key-clear-4").on("click", function() {
+      $('#ubidots-variable-button-key-clear-4').on('click', function() {
         manageArrays(4);
       });
-      $("#ubidots-variable-button-key-clear-5").on("click", function() {
+      $('#ubidots-variable-button-key-clear-5').on('click', function() {
         manageArrays(5);
       });
-      $("#ubidots-variable-button-key-clear-6").on("click", function() {
+      $('#ubidots-variable-button-key-clear-6').on('click', function() {
         manageArrays(6);
       });
-      $("#ubidots-variable-button-key-clear-7").on("click", function() {
+      $('#ubidots-variable-button-key-clear-7').on('click', function() {
         manageArrays(7);
       });
-      $("#ubidots-variable-button-key-clear-8").on("click", function() {
+      $('#ubidots-variable-button-key-clear-8').on('click', function() {
         manageArrays(8);
       });
-      $("#ubidots-variable-button-key-clear-9").on("click", function() {
+      $('#ubidots-variable-button-key-clear-9').on('click', function() {
         manageArrays(9);
       });
-      $("#ubidots-variable-button-key-clear-10").on("click", function() {
+      $('#ubidots-variable-button-key-clear-10').on('click', function() {
         manageArrays(10);
       });
-      $("#ubidots-add-variable-button").on("click", function() {
-        var variableIndex = getMinimum(variablesDesactivados);
-        var index = variablesDesactivados.indexOf(variableIndex);
-        variablesDesactivados.splice(index, 1);
-        variablesActivos.push(variableIndex);
-        $(genericString + variableIndex.toString()).show();
+      $('#ubidots-add-variable-button').on('click', function() {
+        let variableIndex = getMinimum(inactiveVariables);
+        let index = inactiveVariables.indexOf(variableIndex);
+        inactiveVariables.splice(index, 1);
+        activeVariables.push(variableIndex);
+        $(genericString + variableIndex).show();
         showAddButton();
       });
 
       //Select All/Unselect All Button
-      $("#select-all-variables-button").on("click", function() {
+      $('#select-all-variables-button').on('click', function() {
         //Select All
         if (
-          $("#select-all-variables-button")
+          $('#select-all-variables-button')
             .html()
-            .toString() === "Select All"
+            .toString() === 'Select All'
         ) {
-          for (var l = 2; l < 11; l++) {
-            if ($("#variable-" + l).is(":visible")) {
-              $(genericCheckBoxString + l.toString()).prop("checked", true);
-              var index = checkedVariables.indexOf(l);
+          for (let l = 2; l < 11; l++) {
+            if ($(`#variable-${l}`).is(':visible')) {
+              $(genericCheckBoxString + l).prop('checked', true);
+              let index = checkedVariables.indexOf(l);
               if (index < 0) {
                 checkedVariables.push(l);
               }
             }
           }
-          $("#delete-variables-button").attr("style", "margin-left:" + "210px");
-          $("#select-all-variables-button").html("Unselect All");
+          $('#delete-variables-button').attr('style', 'margin-left:' + '210px');
+          $('#select-all-variables-button').html('Unselect All');
         } else {
           //Unselect All
           if (
-            $("#select-all-variables-button")
+            $('#select-all-variables-button')
               .html()
-              .toString() === "Unselect All"
+              .toString() === 'Unselect All'
           ) {
-            for (var l = 2; l < 11; l++) {
-              if ($("#variable-" + l).is(":visible")) {
-                $(genericCheckBoxString + l.toString()).prop("checked", false);
-                var index = checkedVariables.indexOf(l);
+            for (let l = 2; l < 11; l++) {
+              if ($(`#variable-${l}`).is(':visible')) {
+                $(genericCheckBoxString + l).prop('checked', false);
+                let index = checkedVariables.indexOf(l);
                 checkedVariables.splice(index, 1);
               }
             }
-            $("#select-all-variables-button").html("Select All");
-            $("#delete-variables-button").attr("style", "margin-left:240px");
+            $('#select-all-variables-button').html('Select All');
+            $('#delete-variables-button').attr('style', 'margin-left:240px');
           }
         }
       });
       //Delete Button
-      $("#delete-variables-button").on("click", function() {
+      $('#delete-variables-button').on('click', function() {
         auxArray = Array.from(checkedVariables);
-        for (var i = 0; i < auxArray.length; i++) {
+        for (let i = 0; i < auxArray.length; i++) {
           manageArrays(auxArray[i]);
           emptyFields(auxArray[i]);
         }
@@ -520,54 +514,55 @@
       });
 
       function manageCheckBoxes(checkbox, number) {
-        if ($(checkbox).is(":checked")) {
+        if ($(checkbox).is(':checked')) {
           checkedVariables.push(number);
         } else {
-          var index = checkedVariables.indexOf(number);
+          let index = checkedVariables.indexOf(number);
           checkedVariables.splice(index, 1);
         }
       }
 
       function manageArrays(number) {
-        $(genericString + number.toString()).hide();
-        variablesDesactivados.push(number);
-        var index = variablesActivos.indexOf(number);
-        variablesActivos.splice(index, 1);
-        var index2 = checkedVariables.indexOf(number);
+        $(genericString + number).hide();
+        inactiveVariables.push(number);
+        let index = activeVariables.indexOf(number);
+        activeVariables.splice(index, 1);
+        let index2 = checkedVariables.indexOf(number);
         checkedVariables.splice(index2, 1);
         emptyFields(number);
         showAddButton();
       }
 
       function emptyFields(number) {
-        $("#node-input-label_variable_" + number.toString()).val("");
-        $(genericCheckBoxString + number.toString()).prop("checked", false);
-        $(
-          genericLastValueCheckBoxString + number.toString() + lastValueString
-        ).prop("checked", true);
+        $('#node-input-label_variable_' + number).val('');
+        $(genericCheckBoxString + number).prop('checked', false);
+        $(genericLastValueCheckBoxString + number + lastValueString).prop(
+          'checked',
+          true
+        );
       }
 
       function showDeleteButton() {
         if (checkedVariables.length > 0) {
-          $("#select-all-variables-button").show();
-          $("#delete-variables-button").show();
+          $('#select-all-variables-button').show();
+          $('#delete-variables-button').show();
         } else {
-          $("#select-all-variables-button").hide();
-          $("#delete-variables-button").hide();
+          $('#select-all-variables-button').hide();
+          $('#delete-variables-button').hide();
         }
       }
 
       function showAddButton() {
-        if (variablesDesactivados.length > 0) {
-          $("#add-button").show();
+        if (inactiveVariables.length > 0) {
+          $('#add-button').show();
         } else {
-          $("#add-button").hide();
+          $('#add-button').hide();
         }
       }
 
       function getMinimum(array) {
-        var min = array[0];
-        for (var i = 1; i < array.length; i++) {
+        let min = array[0];
+        for (let i = 1; i < array.length; i++) {
           if (array[i] < min) {
             min = array[i];
           }
@@ -604,5 +599,12 @@
   }
   .red-ui-button {
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1), 0 6px 15px 0 rgba(0, 0, 0, 0.1);
+  }
+  .variable__lastValueCheckbox {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 15px;
+    width: auto;
+    vertical-align: center;
   }
 </style>
