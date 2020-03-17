@@ -31,7 +31,6 @@ module.exports = function (RED) {
     });
 
     client.on("error", function () {
-      console.log("Client inside error function");
       client.end(true, function () { });
       self.status({
         fill: "red",
