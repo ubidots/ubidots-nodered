@@ -32,7 +32,7 @@ Double click on the node to configure all the required fields.
 
 *  __Device label__: The label of the Device to which the node subscribes. Please keep in mind that this field is neglected in case custom topics are used.
 
-*  __SSL__: By default, all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
+*  __TLS__: By default, all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
 
 *  __Use Custom Topics__: Allows to specify up to 10 custom topics to which the node subscribes to. The topic starts after `/v1.6/devices/`.
 
@@ -64,7 +64,7 @@ These are the properties you should configure, by double clicking the node:
 
 *  __Device label__  _or_  __msg.ubidotsDeviceLabel__: The name of the Device to which the data will be published. If no Device exists with this label on Ubidots, it will be automatically created. Can be sent dynamically in the message JSON object with the key: `ubidotsDeviceLabel`. If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
 
-*  __SSL__: By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
+*  __TLS__: By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
 
 *  __msg.payload:__ The payload will contain all the values that are sent to the Device. It's structured to use the key of the object as the variable label and the value of the key as the value to send to Ubidots, e.g. `{"variable-label": 42}`
 
