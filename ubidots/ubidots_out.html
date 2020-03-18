@@ -1,102 +1,140 @@
 <script type="text/x-red" data-template-name="ubidots_out">
-    <div class="form-row">
-        <label for="node-input-tier">
-            <i class="icon-flag"></i>
-            <span data-i18n="ubidots.select_tier"></span>
-        </label>
-        <select id="node-input-tier">
-            <option value="business">Ubidots</option>
-            <option value="educational">Ubidots for Education</option>
-        </select>
-    </div>
+   <div class="form-row">
+     <label for="node-input-tier" style="font-size:13px">
+       <i class="fa fa-flag"></i>
 
-    <div class="form-row">
-        <label for="node-input-name">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.name"></span>
-        </label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
-    </div>
+       <span data-i18n="ubidots.select_tier"></span>
+      </label>
+       <select id="node-input-tier">
+         <option value="business">Ubidots</option>
+         <option value="educational">Ubidots for Education</option>
+     </select>
+   </div>
 
-    <div class="form-row">
-        <label for="node-input-token">
-            <i class="icon-lock"></i>
-            <span data-i18n="ubidots.token.label"></span>
-        </label>
-        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
-    </div>
+   <div class="form-row">
+       <label for="node-input-name">
+         <i class="fa fa-tag"></i>
+         <span data-i18n="ubidots.name"></span>
+     </label>
+       <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
+   </div>
 
-    <div class="form-row">
-        <label for="node-input-device_label">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.device_label.label"></span>
-        </label>
-        <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
-    </div>
+   <div class="form-row">
+       <label for="node-input-token">
+         <i class="fa fa-lock"></i>
+         <span data-i18n="ubidots.token.label"></span>
+     </label>
+       <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
+   </div>
+
+   <div class="form-row">
+       <label for="node-input-device_label">
+         <i class="fa fa-tag"></i>
+         <span data-i18n="ubidots.device_label.label"></span>
+     </label>
+       <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
+   </div>
+  <div class="form-row">
+    <input type="checkbox" checked id="node-input-tls_checkbox" style="display: inline-block; width: auto; vertical-align: top;"></label>
+    <label for="node-input-tls_checkbox" style="width: calc(100% - 170px); margin-left:15px" data-i18n="ubidots.tls.label"></label>
+   </div>
+
+
+   </div>
 </script>
 
 <script type="text/x-red" data-help-name="ubidots_out">
-    <p>Receives a message and uses its values to make a request to the Ubidots API.</p>
-
+    <p>Receives a message and uses its values to publish a request to the Ubidots API via MQTT.</p>
     <p>
-    Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and publish
-    the packet.
+      Double click on the node to configure all the required fields.
+    </p>
+  <ul>
+    <li>
+      <p>
+        <b> Account Type: </b>Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
+      </p>
+    </li>
+    <li>
+      <p>
+        <b> Name: </b> Label of node in Node-Red workspace. If empty, defaults to :"Ubidots out".
+      </p>
+    </li>
+    <li>
+      <p>
+        <b> Token: </b> (required) - Token necessary to authenticate the connection to your account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank" rel="noopener noreferrer">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank" rel="noopener noreferrer">Tutorial</a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <b>Device Label: </b> The name of the Device to which the data will be published. If no Device exists with this label, it will be automatically created. Can be sent dynamically in the message JSON object with the key: "ubidotsDeviceLabel". If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
+      <p>
+    </li>
+    <li>
+      <p>
+        <b>SSL: </b> By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
+      </p>
+    </li>
+  </ul>
+        The message can contain the following properties:<br />
+
+        <ul>
+            <li>
+                <b>msg.ubidotsDeviceLabel</b> (optional) - The name of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the <i>Device Label</i> field in the node settings.
+            </li>
+            <li>
+                <b>msg.payload</b> (optional) - The values to be published on the given Device. Each key is the label of the variable.
+                <p>Example of a simple value JSON message:<pre>{"value": 100}</pre>
+                <p>Example of a JSON message providing context data: <pre> {"variable": {"value": 200, "context": {"key1": "value1","key2": "value2"}}}</pre>
+                <p>Example of JSON message with multiple variables: <pre>{"variable_1": {"value": 100, "context": {"key1": "value1", "key2": "value2"}}, "variable_2": {"value": 200, "context": { "key1": "value1", "key2": "value2"}}} </pre>
+
+            </li>
+        </ul>
     </p>
 
     <p>
-    The message can contain the following properties, all of them except the <i>payload</i> can also be configured in
-    the node settings by double clicking it:<br />
-
-    <ul>
-        <li>
-            <b>msg.token</b> (required) - The token of your account.
-        </li>
-        <li>
-            <b>msg.device_label</b> (optional) - The name of the Device in which the packet will be published. If
-            no Device exists with this label, it will be automatically created.
-        </li>
-        <li>
-            <b>msg.payload</b> (optional) - The values to be published on the given Device. Each key is the label of the
-            variable.
-        </li>
-    </ul>
-    </p>
-
-    <p>
-    Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more
-    information about the functionality of the MQTT broker.
+        Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank" rel="noopener noreferrer">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
     </p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('ubidots_out', {
-        category: 'output',
-        color : "#5996F7",
-        defaults : {
-            name : {value: ""},
-            token : {value: ""},
-            label_device: {value: ""},
-            device_label: {value: ""},
-            tier: { value: 'business' }
-        },
-        inputs : 1,
-        outputs : 0,
-        icon : "ubidots.png",
-        label : function() {
-            return this.name || this.to || "ubidots out";
-        },
-        labelStyle : function() {
-            return this.name ? "node_label_italic" : "";
-        }
-    });
+  RED.nodes.registerType("ubidots_out", {
+    category: "output",
+    color: "#5996F7",
+    defaults: {
+      name: {
+        value: ""
+      },
+      token: {
+        value: ""
+      },
+      label_device: { value: "" },
+      device_label: {
+        value: ""
+      },
+      tier: {
+        value: "business"
+      },
+      tls_checkbox: { value: true }
+    },
+    inputs: 1,
+    outputs: 0,
+    icon: "ubidots.png",
+
+    label: function() {
+      return this.name || this.to || "Ubidots out";
+    },
+    labelStyle: function() {
+      return this.name ? "node_label_italic" : "";
+    }
+  });
 </script>
 
 <style>
-.form-row label {
+  .form-row label {
     width: 25%;
-}
+  }
 
-.form-row select {
+  .form-row select {
     width: 70%;
-}
+  }
 </style>

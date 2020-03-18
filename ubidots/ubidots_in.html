@@ -1,111 +1,617 @@
 <script type="text/x-red" data-template-name="ubidots_in">
-    <div class="form-row">
-        <label for="node-input-tier">
-            <i class="icon-flag"></i>
-            <span data-i18n="ubidots.select_tier"></span>
-        </label>
-        <select id="node-input-tier">
-            <option value="business">Ubidots</option>
-            <option value="educational">Ubidots for Education</option>
-        </select>
-    </div>
+      <div class="form-row">
+          <label for="node-input-tier" style="font-size:13px">
+        <i class="fa fa-flag"></i>
+        <span data-i18n="ubidots.select_tier"></span>
+    </label>
+          <select id="node-input-tier">
+        <option value="business">Ubidots</option>
+        <option value="educational">Ubidots for Education</option>
+    </select>
+      </div>
 
-    <div class="form-row">
-        <label for="node-input-name">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.name"></span>
-        </label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
-    </div>
+      <div class="form-row">
+          <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+        <span data-i18n="ubidots.name"></span>
+    </label>
+          <input type="text" id="node-input-name" data-i18n="[placeholder]ubidots.name" />
+      </div>
 
-    <div class="form-row">
-        <label for="node-input-token">
-            <i class="icon-lock"></i>
-            <span data-i18n="ubidots.token.label"></span>
-        </label>
-        <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
-    </div>
+      <div class="form-row">
+          <label for="node-input-token">
+        <i class="fa fa-lock"></i>
+        <span data-i18n="ubidots.token.label"></span>
+    </label>
+          <input type="text" id="node-input-token" data-i18n="[placeholder]ubidots.token.placeholder" />
+      </div>
 
-    <div class="form-row">
-        <label for="node-input-device_label">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.device_label.label"></span>
-        </label>
-        <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
+      <div id="device_label" class="form-row">
+          <label for="node-input-device_label">
+        <i class="fa fa-tag"></i>
+        <span data-i18n="ubidots.device_label.label"></span>
+    </label>
+          <input type="text" id="node-input-device_label" data-i18n="[placeholder]ubidots.device_label.placeholder" />
+      </div>
+      <div class="form-row">
+        <input type="checkbox" checked id="node-input-tls_checkbox_in" style="display: inline-block; width: auto; vertical-align: top;"></label>
+        <label for="node-input-tls_checkbox_in" style="width: calc(100% - 170px); margin-left:15px" data-i18n="ubidots.tls.label"></label>
     </div>
+    <div class="form-row">
+      <input type="checkbox" id="node-input-custom_topic_checkbox" style="display: inline-block; width: auto; vertical-align: top;"></label>
+      <label for="node-input-custom_topic_checkbox" style="width: calc(100% - 170px); margin-left:15px" data-i18n="ubidots.custom_topics"></label>
+  </div>
+  <hr>
 
-    <div class="form-row">
-        <label for="node-input-label_variable">
-            <i class="icon-tag"></i>
-            <span data-i18n="ubidots.label_variable.label"></span>
-        </label>
-        <input type="text" id="node-input-label_variable" data-i18n="[placeholder]ubidots.label_variable.placeholder" />
-    </div>
+      <!-- DELETE/SELECT ALL BUTTON -->
+      <div class="form-row form-row__flex form-row__space-between">
+        <button id="select-all-variables-button" class="deleteButton" data-i18n="ubidots.variables.selectAll"></button>
+        <button id="delete-variables-button" class="deleteButton" data-i18n="ubidots.variables.delete"></button>
+      </div>
+      <!-- VARIABLE 1 -->
+      <div id="variable-1" class="form-row" style="margin-bottom:10px">
+        <label style="width:24px" id=node-input-variable-1-space></label>
+         <input type="text" style="width: calc(100% - 250px); margin-left:28px" id="node-input-label_variable_1" />
+         <input class="variable__lastValueCheckbox" type="checkbox" checked id="node-input-checkbox_variable_1_last_value" >
+          <label id="node-input-last-value-label-1" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+      </div>
+      <!-- VARIABLES 2-->
+      <div id="variable-2" class="form-row" >
+          <input type="checkbox" id="ubidots-checkbox-variable-2" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_2" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_2_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-2" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-2" style="margin-left:15px"><i style="color:#525050"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 3 -->
+      <div id="variable-3" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-3" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_3" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_3_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-3" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-3" style="margin-left:15px"><i style="color:#525050"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 4 -->
+      <div id="variable-4" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-4" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_4" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_4_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-4" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-4" style="margin-left:15px"><i style="color:#525050;"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 5 -->
+      <div id="variable-5" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-5" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_5" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_5_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-5" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-5" style="margin-left:15px"><i style="color:#525050;"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 6 -->
+      <div id="variable-6" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-6" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_6" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_6_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-6" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-6" style="margin-left:15px"><i style="color:#525050;"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 7 -->
+      <div id="variable-7" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-7" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_7" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_7_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-7" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-7" style="margin-left:15px"><i style="color:#525050;"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 8 -->
+      <div id="variable-8" id="variable-8" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-8" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_8" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_8_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-8" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-8" style="margin-left:15px"><i style="color:#525050;"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 9 -->
+      <div id="variable-9" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-9" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_9" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_9_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-9" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-9" style="margin-left:15px"><i style="color:#525050;"class="fa fa-times"></i></button>
+      </div>
+      <!-- Variable 10 -->
+      <div id="variable-10" class="form-row">
+          <input type="checkbox" id="ubidots-checkbox-variable-10" style="display: inline-block; margin-right:10px; width: auto; vertical-align: center;">
+          <input type="text" style="width: calc(100% - 250px);" id="node-input-label_variable_10" />
+          <input type="checkbox" checked id="node-input-checkbox_variable_10_last_value" class="variable__lastValueCheckbox">
+          <label id="node-input-last-value-label-10" style="width: 89px" data-i18n="ubidots.lastValue"></label>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-10" style="margin-left: 15px"><i style="color:#525050;" class="fa fa-times"></i></button>
+      </div>
+      <hr>
+      <!-- Add Button -->
+      <div id="add-button" class="form-row" style="margin-top:10px">
+          <label style="width: calc(30%)" id="ubidots-add-variable-button-label" for="ubidots-add-variable-button">
+          </label>
+          <span  style="width: calc(15%)">
+         <button class="red-ui-button" id="ubidots-add-variable-button"><i class="fa fa-plus"></i></button>
+      </span>
+
+      </div>
 </script>
 
-
 <script type="text/x-red" data-help-name="ubidots_in">
-    <p>Fetch the last value from Ubidots and send it as a message to other nodes.</p>
+  <p>Subscribes to up to 10 variables or topics from Ubidots and sends them as a message to other nodes.</p>
 
-    <p>
-    Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank">MQTT</a> to make the connection and suscribe
-    to the channel.
-    </p>
+  <p>
+      Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener noreferrer">MQTT</a> library to establish the connection and suscribe to the variable or topic.
+  </p>
 
-    <p>
-    You must configure your node by double clicking it and filling the following information, all fields are required:
-    <br />
+  <p>
+      Double click on the node to configure all the required fields.
 
-    <ul>
-        <li>
-            <b>Account type</b> - The type of your account, whether it is a Ubidots or Ubidots for
-            Education account.
-        </li>
-        <li>
-            <b>Name</b> - The name to identify your MQTT client.
-        </li>
-        <li>
-            <b>Token</b> - Your Ubidots' account token. You can find it by following
-            <a href="http://help.ubidots.com/user-guides/find-your-token-from-your-ubidots-account" target="_blank">
-                this tutorial
-            </a>.
-        </li>
-        <li>
-            <b>Device label</b> - The label of the Device that contains the Variable where you want to fetch the values.
-        </li>
-        <li>
-            <b>Variable label</b> - The label of the Variable that you want to fetch the values from.
-        </li>
-    </ul>
-    </p>
 
-    <p>
-    Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more
-    information about the functionality of the MQTT broker.
-    </p>
+      <ul>
+          <li>
+            <p>
+              <b> Account Type: </b>Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
+            </p>
+          </li>
+          <li>
+
+            <p>
+              <b> Name: </b> Label of node in Node-Red workspace. If empty, defaults to :"Ubidots in".
+            </p>
+          </li>
+          <li>
+            <p>
+              <b> Token: </b> (required) - Token necessary to authenticate the connection to your Ubidots account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank">Tutorial</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Device label</b> - The label of the Device to which the node subscribes. Please keep in mind that this field is neglected in case custom topics are used.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>SSL: </b> By default, all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Use Custom Topics: </b> Allows to specify up to 10 custom topics to which the node subscribes to. The topic starts after <code>/v1.6/devices/</code>. <p>A topic has to be in the following format: <code>Device_Label/Variable_Label</code>. Optionally <code>/lv</code> can be added to subscribe to the Last Value only. Topics support wildcard characters: "+" for single level and "#" for multi level.</p>
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Variable Label: </b> (required) - The name of the Variable the node subscribes to.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Last Value: </b> By default, the node subscribes to the Last Value of the variable. Uncheck to subscribe to the complete data point object.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Add Variable/Add Topic: </b> Adds an additional variable/topic (up to 10).
+            </p>
+          </li>
+      </ul>
+      <p>The output is a JSON object with the topic as key and the Last Value/data point object as value, e.g.: <pre>{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
+  </p>
+
+  <p>
+      Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
+  </p>
+  <hr>
+  <p>
+    <pre>If you get the error: "TypeError: send is not a function", please run <code>npm update node-red</code> and reload Node-Red.</pre>
+  </p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('ubidots_in', {
-        category: 'input',
-        color : "#5996F7",
-        defaults : {
-            tier: { value: 'business' },
-            name : {value : ""},
-            token : {value : ""},
-            device_label : {value : ""},
-            label_device : {value: ""},
-            label_variable : {value: ""}
-        },
-        inputs : 0,
-        outputs : 1,
+  RED.nodes.registerType('ubidots_in', {
+    category: 'input',
+    color: '#5996F7',
+    defaults: {
+      tier: {
+        value: 'business'
+      },
+      name: {
+        value: 'Ubidots in',
+        required: true
+      },
+      token: {
+        value: ''
+      },
+      device_label: {
+        value: ''
+      },
+      tls_checkbox_in: { value: true },
+      custom_topic_checkbox: { value: false },
+      label_variable_1: {
+        value: '',
+        required: true
+      },
+      label_variable_2: {
+        value: ''
+      },
+      label_variable_3: {
+        value: ''
+      },
+      label_variable_4: {
+        value: ''
+      },
+      label_variable_5: {
+        value: ''
+      },
+      label_variable_6: {
+        value: ''
+      },
+      label_variable_7: {
+        value: ''
+      },
+      label_variable_8: {
+        value: ''
+      },
+      label_variable_9: {
+        value: ''
+      },
+      label_variable_10: {
+        value: ''
+      },
+      checkbox_variable_1_last_value: { value: true },
+      checkbox_variable_2_last_value: { value: true },
+      checkbox_variable_3_last_value: { value: true },
+      checkbox_variable_4_last_value: { value: true },
+      checkbox_variable_5_last_value: { value: true },
+      checkbox_variable_6_last_value: { value: true },
+      checkbox_variable_7_last_value: { value: true },
+      checkbox_variable_8_last_value: { value: true },
+      checkbox_variable_9_last_value: { value: true },
+      checkbox_variable_10_last_value: { value: true }
+    },
+    inputs: 0,
+    outputs: 1,
 
-        icon : "ubidots.png",
-        label : function() {
-            return this.name || this.to || "ubidots input";
-        },
-        labelStyle : function() {
-            return this.name ? "node_label_italic" : "";
+    icon: 'ubidots.png',
+    label: function() {
+      return this.name || this.to || 'Ubidots in';
+    },
+    labelStyle: function() {
+      return this.name ? 'node_label_italic' : '';
+    },
+
+    oneditprepare: function() {
+      let activeVariables = [];
+      let inactiveVariables = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+      let checkedVariables = [];
+      let auxArray = [];
+      let genericString = '#variable-';
+      let genericCheckBoxString = '#ubidots-checkbox-variable-';
+      let genericLastValueCheckBoxString = '#node-input-checkbox_variable_';
+      let lastValueString = '_last_value';
+
+      //hide/show extra variables by default
+      for (let i = 2; i < 11; i++) {
+        if (!$('#node-input-label_variable_' + i).val()) {
+          $(`#variable-${i}`).hide();
+          $(`#node-input-checkbox_variable_${i}_last_value`).prop(
+            'checked',
+            true
+          );
+          //"#node-input-checkbox_variable_" + i + "_last_value"
         }
-    });
+      }
+
+      if ($('#node-input-custom_topic_checkbox').is(':checked')) {
+        //Custom Topics selected
+        $('#device_label').hide();
+        for (let i = 1; i < 11; i++) {
+          $('#node-input-checkbox_variable_' + i + '_last_value').hide();
+          $('#node-input-last-value-label-' + i).hide();
+          $(`#node-input-label_variable_${i}`).attr(
+            'placeholder',
+            'Topic ' + i
+          );
+          $(`#node-input-label_variable_${i}`).attr(
+            'style',
+            'width:' + 'calc(100% - 115px)'
+          );
+        }
+        $('#ubidots-add-variable-button-label').text('Add Topic');
+      } else {
+        //No Custom Topics --> Variables
+        $('#device_label').show();
+        $('#node-input-variable-1-space').show();
+        for (let i = 1; i < 11; i++) {
+          $(`#node-input-checkbox_variable_${i}_last_value`).show();
+          $(`#node-input-last-value-label-${i}`).show();
+          $(`#node-input-label_variable_${i}`).attr(
+            'placeholder',
+            'Variable Label ' + i
+          );
+          $(`#node-input-label_variable_${i}`).attr(
+            'style',
+            'width:' + 'calc(100% - 250px)'
+          );
+        }
+        $('#ubidots-add-variable-button-label').text('Add Variable');
+      }
+
+      $('#delete-variables-button').hide();
+      $('#select-all-variables-button').hide();
+      $('#node-input-custom_topic_checkbox').on('click', function() {
+        //checkbox is checked
+        if ($('#node-input-custom_topic_checkbox').is(':checked')) {
+          $('#device_label').hide();
+          for (let i = 1; i < 11; i++) {
+            //Changing Placeholders to "Topic"
+
+            $(`#node-input-label_variable_${i}`).attr(
+              'placeholder',
+              'Topic ' + i
+            );
+            //Changing input size
+            $(`#node-input-label_variable_${i}`).attr(
+              'style',
+              'width:' + 'calc(100% - 115px)'
+            );
+            //hiding last value
+            $(`#node-input-checkbox_variable_${i}_last_value`).hide();
+            $(`#node-input-last-value-label-${i}`).hide();
+            $('#ubidots-add-variable-button-label').text('Add Topic');
+          }
+          $('#node-input-label_variable_1').attr(
+            'style',
+            'width:' + 'calc(100% - 115px)'
+          );
+          $('#node-input-variable-1-space').show();
+        } else {
+          //checkbox unchecked
+          $('#device_label').show();
+          for (let i = 1; i < 11; i++) {
+            $(`#node-input-label_variable_${i}`).attr(
+              'placeholder',
+              'Variable Label ' + i
+            );
+            //Changing input size
+            $(`#node-input-label_variable_${i}`).attr(
+              'style',
+              'width:' + 'calc(100% - 250px)'
+            );
+            //hiding last value
+            $(`#node-input-checkbox_variable_${i}_last_value`).show();
+            $(`#node-input-last-value-label-${i}`).show();
+            $('#ubidots-add-variable-button-label').text('Add Variable');
+          }
+        }
+      });
+
+      //Defining checkbox behaviour
+      $('#ubidots-checkbox-variable-2').on('click', function() {
+        manageCheckBoxes(this, 2);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-3').on('click', function() {
+        manageCheckBoxes(this, 3);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-4').on('click', function() {
+        manageCheckBoxes(this, 4);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-5').on('click', function() {
+        manageCheckBoxes(this, 5);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-6').on('click', function() {
+        manageCheckBoxes(this, 6);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-7').on('click', function() {
+        manageCheckBoxes(this, 7);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-8').on('click', function() {
+        manageCheckBoxes(this, 8);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-9').on('click', function() {
+        manageCheckBoxes(this, 9);
+        showDeleteButton();
+      });
+      $('#ubidots-checkbox-variable-10').on('click', function() {
+        manageCheckBoxes(this, 10);
+        showDeleteButton();
+      });
+
+      //Defining clear buttons
+      $('#ubidots-variable-button-key-clear-2').on('click', function() {
+        manageArrays(2);
+      });
+      $('#ubidots-variable-button-key-clear-3').on('click', function() {
+        manageArrays(3);
+      });
+      $('#ubidots-variable-button-key-clear-4').on('click', function() {
+        manageArrays(4);
+      });
+      $('#ubidots-variable-button-key-clear-5').on('click', function() {
+        manageArrays(5);
+      });
+      $('#ubidots-variable-button-key-clear-6').on('click', function() {
+        manageArrays(6);
+      });
+      $('#ubidots-variable-button-key-clear-7').on('click', function() {
+        manageArrays(7);
+      });
+      $('#ubidots-variable-button-key-clear-8').on('click', function() {
+        manageArrays(8);
+      });
+      $('#ubidots-variable-button-key-clear-9').on('click', function() {
+        manageArrays(9);
+      });
+      $('#ubidots-variable-button-key-clear-10').on('click', function() {
+        manageArrays(10);
+      });
+      $('#ubidots-add-variable-button').on('click', function() {
+        let variableIndex = getMinimum(inactiveVariables);
+        let index = inactiveVariables.indexOf(variableIndex);
+        inactiveVariables.splice(index, 1);
+        activeVariables.push(variableIndex);
+        $(genericString + variableIndex).show();
+        showAddButton();
+      });
+
+      //Select All/Unselect All Button
+      $('#select-all-variables-button').on('click', function() {
+        //Select All
+        if (
+          $('#select-all-variables-button')
+            .html()
+            .toString() === 'Select All'
+        ) {
+          for (let l = 2; l < 11; l++) {
+            if ($(`#variable-${l}`).is(':visible')) {
+              $(genericCheckBoxString + l).prop('checked', true);
+              let index = checkedVariables.indexOf(l);
+              if (index < 0) {
+                checkedVariables.push(l);
+              }
+            }
+          }
+          $('#select-all-variables-button').html('Unselect All');
+        } else {
+          //Unselect All
+          if (
+            $('#select-all-variables-button')
+              .html()
+              .toString() === 'Unselect All'
+          ) {
+            for (let l = 2; l < 11; l++) {
+              if ($(`#variable-${l}`).is(':visible')) {
+                $(genericCheckBoxString + l).prop('checked', false);
+                let index = checkedVariables.indexOf(l);
+                checkedVariables.splice(index, 1);
+              }
+            }
+            $('#select-all-variables-button').html('Select All');
+          }
+        }
+      });
+      //Delete Button
+      $('#delete-variables-button').on('click', function() {
+        auxArray = Array.from(checkedVariables);
+        for (let i = 0; i < auxArray.length; i++) {
+          manageArrays(auxArray[i]);
+          emptyFields(auxArray[i]);
+        }
+        auxArray.splice(0, auxArray.length);
+        showDeleteButton();
+      });
+
+      function manageCheckBoxes(checkbox, number) {
+        if ($(checkbox).is(':checked')) {
+          checkedVariables.push(number);
+        } else {
+          let index = checkedVariables.indexOf(number);
+          checkedVariables.splice(index, 1);
+        }
+      }
+
+      function manageArrays(number) {
+        $(genericString + number).hide();
+        inactiveVariables.push(number);
+        let index = activeVariables.indexOf(number);
+        activeVariables.splice(index, 1);
+        let index2 = checkedVariables.indexOf(number);
+        checkedVariables.splice(index2, 1);
+        emptyFields(number);
+        showAddButton();
+      }
+
+      function emptyFields(number) {
+        $('#node-input-label_variable_' + number).val('');
+        $(genericCheckBoxString + number).prop('checked', false);
+        $(genericLastValueCheckBoxString + number + lastValueString).prop(
+          'checked',
+          true
+        );
+      }
+
+      function showDeleteButton() {
+        if (checkedVariables.length > 0) {
+          $('#select-all-variables-button').show();
+          $('#delete-variables-button').show();
+        } else {
+          $('#select-all-variables-button').hide();
+          $('#delete-variables-button').hide();
+        }
+      }
+
+      function showAddButton() {
+        if (inactiveVariables.length > 0) {
+          $('#add-button').show();
+        } else {
+          $('#add-button').hide();
+        }
+      }
+
+      function getMinimum(array) {
+        let min = array[0];
+        for (let i = 1; i < array.length; i++) {
+          if (array[i] < min) {
+            min = array[i];
+          }
+        }
+        return min;
+      }
+    }
+  });
 </script>
+
+<style>
+  .deleteButton {
+    color: #494949 !important;
+    text-decoration: none;
+    background: #ffffff;
+    padding: 5px;
+    border: 1px solid #cccccc !important;
+    display: inline-block;
+    transition: all 0.5s ease 0s;
+    white-space: no-wrap;
+  }
+
+  .deleteButton:hover {
+    color: #ffffff !important;
+    background: #b4162a;
+    border-color: #b4162a !important;
+    transition: all 0.4s ease 0s;
+  }
+
+  .deleteButton:active {
+    color: #ffffff !important;
+    background: #8a1222;
+    border-color: #8a1222 !important;
+    transition: all 0.4s ease 0s;
+  }
+  .red-ui-button {
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1), 0 6px 15px 0 rgba(0, 0, 0, 0.1);
+  }
+  .form-row .variable__lastValueCheckbox[type='checkbox'] {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 15px;
+    width: auto;
+    vertical-align: center;
+  }
+
+  .form-row__flex {
+    display: flex;
+  }
+
+  .form-row__space-between {
+    justify-content: space-between;
+  }
+</style>
