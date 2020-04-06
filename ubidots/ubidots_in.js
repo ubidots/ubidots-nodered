@@ -10,7 +10,8 @@ module.exports = function (RED) {
     endpointUrl,
     labelDevice,
     labelVariable,
-    token
+    token,
+    useCustomTopics
   ) {
     self.status({ fill: "green", shape: "ring", text: "ubidots.connecting" });
     var URL_PREFIX = "mqtt://";
@@ -19,7 +20,7 @@ module.exports = function (RED) {
     var certificate = fs.readFileSync(
       path.join(__dirname, "../keys/certificate.pem"),
       "utf8",
-      function () { }
+      function () {}
     );
 
     var client = mqtt.connect(URL_PREFIX + endpointUrl, {
@@ -31,7 +32,7 @@ module.exports = function (RED) {
     });
 
     client.on("error", function () {
-      client.end(true, function () { });
+      client.end(true, function () {});
       self.status({
         fill: "red",
         shape: "ring",
@@ -40,7 +41,7 @@ module.exports = function (RED) {
     });
 
     client.on("close", function () {
-      client.end(true, function () { });
+      client.end(true, function () {});
     });
 
     client.on("reconnect", function () {
@@ -75,10 +76,8 @@ module.exports = function (RED) {
       client.subscribe(topics, options, function (err, granted) {
         try {
           client.on("message", function (topic, message, packet) {
-            var shortTopic = topic.substring(14);
-            var finalMessage = {};
-            finalMessage[shortTopic] = JSON.parse(message.toString());
-            self.emit("input", { payload: finalMessage });
+            let finalObject = defineOutputObject(topic, message);
+            self.emit("input", { payload: finalObject });
           });
         } catch (e) {
           console.log("Error when trying to emit: ", e);
@@ -90,6 +89,31 @@ module.exports = function (RED) {
         }
       });
     });
+
+    function defineOutputObject(topic, message) {
+      let finalObject = {};
+      let variable = topic;
+      if (useCustomTopics) {
+        variable = topic.substring(14);
+        if (topic.substring(topic.length - 3) === "/lv") {
+          finalObject[variable] = { value: JSON.parse(message.toString()) };
+        } else {
+          finalObject[variable] = JSON.parse(message.toString());
+        }
+      } else {
+        if (topic.substring(topic.length - 3) === "/lv") {
+          variable = topic.slice(0, topic.length - 3);
+        }
+        let array = variable.split("/");
+        variable = array[array.length - 1];
+        if (topic.substring(topic.length - 3) === "/lv") {
+          finalObject[variable] = { value: JSON.parse(message.toString()) };
+        } else {
+          finalObject[variable] = JSON.parse(message.toString());
+        }
+      }
+      return finalObject;
+    }
   }
 
   function UbidotsNode(config) {
@@ -104,6 +128,7 @@ module.exports = function (RED) {
     var labelVariable = config["label_variable_1"];
     var endpointUrl = ENDPOINTS_URLS[config.tier] || ENDPOINTS_URLS.business;
     var token = config.token;
+    var useCustomTopics = config.custom_topic_checkbox;
 
     var topics = {};
     topics = getSubscribePaths(config);
@@ -115,13 +140,14 @@ module.exports = function (RED) {
       endpointUrl,
       labelDevice,
       labelVariable,
-      token
+      token,
+      useCustomTopics
     );
 
     this.on("error", function (msg) {
       console.log("Client: Inside error function", msg);
       if (self.client !== null && self.client !== undefined) {
-        self.client.end(true, function () { });
+        self.client.end(true, function () {});
       }
       self.status({
         fill: "red",
@@ -132,7 +158,7 @@ module.exports = function (RED) {
 
     this.on("close", function () {
       if (self.client !== null && self.client !== undefined) {
-        self.client.end(true, function () { });
+        self.client.end(true, function () {});
       }
     });
 
@@ -173,9 +199,13 @@ function getSubscribePaths(config) {
       completeCheckboxString = checkboxString + i.toString() + checkboxString2;
       if (!(config[completeLabelString] === "")) {
         //if last value checkbox is checked
-        var devicePath = '/v1.6/devices/' + config.device_label + "/" + config[completeLabelString];
+        var devicePath =
+          "/v1.6/devices/" +
+          config.device_label +
+          "/" +
+          config[completeLabelString];
         if (config[completeCheckboxString]) {
-          devicePath += '/lv';
+          devicePath += "/lv";
         }
         paths.push(devicePath);
       }
