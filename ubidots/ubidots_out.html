@@ -97,36 +97,36 @@
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType("ubidots_out", {
-    category: "output",
-    color: "#5996F7",
+  RED.nodes.registerType('ubidots_out', {
+    category: 'output',
+    color: '#5996F7',
     defaults: {
       name: {
-        value: ""
+        value: ''
       },
       token: {
-        value: "",
-        required:true
+        value: '',
+        required: true
       },
-      label_device: { value: "" },
+      label_device: { value: '' },
       device_label: {
-        value: "",
-        required:true
+        value: '',
+        required: true
       },
       tier: {
-        value: "business"
+        value: 'business'
       },
       tls_checkbox: { value: true }
     },
     inputs: 1,
     outputs: 0,
-    icon: "ubidots.png",
+    icon: 'ubidots.png',
 
-    label: function() {
-      return this.name || this.to || "Ubidots out";
+    label: function () {
+      return this.name || this.to || 'Ubidots out';
     },
-    labelStyle: function() {
-      return this.name ? "node_label_italic" : "";
+    labelStyle: function () {
+      return this.name ? 'node_label_italic' : '';
     }
   });
 </script>
