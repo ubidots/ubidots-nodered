@@ -24,7 +24,7 @@ The node uses the [MQTT](https://github.com/mqttjs/MQTT.j) library to establish 
 
 Double click on the node to configure all the required fields.
 
-*  __Account type:__ Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
+*  __Account type:__ Defaults to "Ubidots" (Paid Account). If you have an education account choose "Ubidots for Education" (STEM account).
 
 *  __Name:__ The Label of the node in the Node-Red workspace. If empty, defaults to: "Ubidots in". This library uses an MQTT implementation, hence, it's neccesary to name this MQTT client. We recommend you to choose a non-easy-to-copy name, to prevent cases where the name crashes between different clients in the broker.
 
@@ -44,7 +44,7 @@ A topic has to be in the following format: `Device_Label/Variable_Label`. Option
 
 *  __Add Variable/Add Topic__: Adds an additional variable/topic (up to 10).
 
-The output is a JSON object with the *Topic* as key and the *Last Value*/data point object as value, e.g.: `{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732}`
+The output is a JSON object with the *variable name* as key and the *Last Value*/data point object as value, e.g.: `{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732}`
 
 Refer to the [Ubidots Documentation](https://ubidots.com/docs/api/mqtt.html) for more information about the functionality of the MQTT broker.
 
@@ -56,13 +56,13 @@ This node is used to publish to an Ubidots [Variable](http://help.ubidots.com/fa
 
 These are the properties you should configure, by double clicking the node:
 
-*  __Account type:__ Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
+*  __Account type:__ Defaults to "Ubidots" (Paid Account). If you have an education account choose "Ubidots for Education" (STEM account).
 
 *  __Name:__ Label of node in Node-Red workspace. If empty, defaults to: "Ubidots out". This library uses an MQTT implementation, hence, it's neccesary to name this MQTT client. We recommend you to choose a non-easy-to-copy name, to prevent cases where the name crashes between different clients in the broker.
 
 *  __Token__: The Token necessary to authenticate the connection to your account. To obtain your token, login on [ubidots.com](https://www.ubidots.com), under "My Profile" click on "API Credentials". [Tutorial](https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account)
 
-*  __Device label__  _or_  __msg.ubidotsDeviceLabel__: The name of the Device to which the data will be published. If no Device exists with this label on Ubidots, it will be automatically created. Can be sent dynamically in the message JSON object with the key: `ubidotsDeviceLabel`. If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
+*  __Device label__  _or_  __msg.payload.ubidotsDeviceLabel__: The name of the Device to which the data will be published. If no Device exists with this label on Ubidots, it will be automatically created. Can be sent dynamically in the message JSON object with the key: `ubidotsDeviceLabel`. If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
 
 *  __TLS__: By default all data is sent encrypted via TLS. Uncheck if data should be sent unencrypted.
 
@@ -70,7 +70,7 @@ These are the properties you should configure, by double clicking the node:
 
 The message can contain the following properties:
 
-- `msg.ubidotsDeviceLabel` (optional) - The name of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the *Device Label* field in the node settings.
+- `msg.payload.ubidotsDeviceLabel` (optional) - The name of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the *Device Label* field in the node settings.
 
 - `msg.payload` (optional) - The values to be published on the given Device. Each key is the label of the variable.
 

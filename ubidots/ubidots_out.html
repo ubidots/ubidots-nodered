@@ -51,7 +51,7 @@
   <ul>
     <li>
       <p>
-        <b> Account Type: </b>Defaults to "Ubidots" (standard account). If you have an education account choose "Ubidots for Education".
+        <b> Account Type: </b>Defaults to "Ubidots" (Paid Account). If you have an education account choose "Ubidots for Education" (STEM account).
       </p>
     </li>
     <li>
@@ -79,7 +79,7 @@
 
         <ul>
             <li>
-                <b>msg.ubidotsDeviceLabel</b> (optional) - The name of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the <i>Device Label</i> field in the node settings.
+                <b>msg.payload.ubidotsDeviceLabel</b> (optional) - The name of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the <i>Device Label</i> field in the node settings.
             </li>
             <li>
                 <b>msg.payload</b> (optional) - The values to be published on the given Device. Each key is the label of the variable.
@@ -97,34 +97,36 @@
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType("ubidots_out", {
-    category: "output",
-    color: "#5996F7",
+  RED.nodes.registerType('ubidots_out', {
+    category: 'output',
+    color: '#5996F7',
     defaults: {
       name: {
-        value: ""
+        value: ''
       },
       token: {
-        value: ""
+        value: '',
+        required: true
       },
-      label_device: { value: "" },
+      label_device: { value: '' },
       device_label: {
-        value: ""
+        value: '',
+        required: true
       },
       tier: {
-        value: "business"
+        value: 'business'
       },
       tls_checkbox: { value: true }
     },
     inputs: 1,
     outputs: 0,
-    icon: "ubidots.png",
+    icon: 'ubidots.png',
 
-    label: function() {
-      return this.name || this.to || "Ubidots out";
+    label: function () {
+      return this.name || this.to || 'Ubidots out';
     },
-    labelStyle: function() {
-      return this.name ? "node_label_italic" : "";
+    labelStyle: function () {
+      return this.name ? 'node_label_italic' : '';
     }
   });
 </script>
