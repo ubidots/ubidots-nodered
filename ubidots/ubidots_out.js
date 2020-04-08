@@ -40,7 +40,7 @@ module.exports = function (RED) {
     });
 
     client.on('connect', function (connack) {
-      console.log('Publisher connected');
+      console.log('Ubidots Publisher connected');
       self.status({ fill: 'green', shape: 'dot', text: 'Connected' });
     });
     client.on('disconnect', function (packet) {

@@ -69,7 +69,7 @@ module.exports = function (RED) {
     });
 
     client.on('connect', function () {
-      console.log('Client connected');
+      console.log('Ubidots Client connected');
       var options = { qos: 1 };
 
       self.status({ fill: 'green', shape: 'dot', text: 'ubidots.connected' });

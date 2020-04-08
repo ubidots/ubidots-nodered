@@ -50,7 +50,7 @@
       </div>
       <!-- VARIABLE 1 -->
       <div id="variable-1" class="form-row form-row__flex form-row__space-between">
-         <input type="checkbox" class="variable__selectVariableCheckbox" style="opacity:0">
+         <input type="checkbox" class="variable__selectVariableCheckbox checkbox-hidden" style="opacity:0">
          <input type="text" id="node-input-label_variable_1" />
          <input class="variable__lastValueCheckbox" type="checkbox" checked id="node-input-checkbox_variable_1_last_value" >
          <label id="node-input-last-value-label-1" data-i18n="ubidots.lastValue"></label>
@@ -127,7 +127,7 @@
           <input type="text"  id="node-input-label_variable_10" />
           <input type="checkbox" checked id="node-input-checkbox_variable_10_last_value" class="variable__lastValueCheckbox">
           <label id="node-input-last-value-label-10"  data-i18n="ubidots.lastValue"></label>
-          <button class="red-ui-button" id="ubidots-variable-button-key-clear-10" style="margin-left: 15px"><i style="color:#525050;" class="fa fa-times"></i></button>
+          <button class="red-ui-button" id="ubidots-variable-button-key-clear-10" ><i style="color:#525050;" class="fa fa-times"></i></button>
       </div>
       <hr>
       <!-- Add Button -->
@@ -602,6 +602,16 @@
   }
   .red-ui-button {
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1), 0 6px 15px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  #variable-1 .red-ui-button {
+    pointer-events:none;
+    visibility: hidden;
+  }
+
+  #variable-1 .checkbox-hidden {
+    pointer-events:none;
+    visibility: hidden;
   }
 
   .reset[type='button'] {
