@@ -44,7 +44,7 @@ A topic has to be in the following format: `Device_Label/Variable_Label`. Option
 
 *  __Add Variable/Add Topic__: Adds an additional variable/topic (up to 10).
 
-The output is a JSON object with the *Topic* as key and the *Last Value*/data point object as value, e.g.: `{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732}`
+The output is a JSON object with the *variable name* as key and the *Last Value*/data point object as value, e.g.: `{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732}`
 
 Refer to the [Ubidots Documentation](https://ubidots.com/docs/api/mqtt.html) for more information about the functionality of the MQTT broker.
 
