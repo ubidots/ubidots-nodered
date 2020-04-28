@@ -46,7 +46,7 @@ A topic has to be in the following format: `Device_Label/Variable_Label`. Option
 
 When using custom topics, the output is a JSON object with the *topic* as key and the *Last Value*/data point object as value, e.g.: `{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732}`
 
-<p>When using the variable name (with the device label), the output is a JSON object with the variable name as key and the object as value, e.g.: <pre>{"variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
+When using the variable name (with the device label), the output is a JSON object with the *variable name* as key and the *Last Value*/data point object as value, e.g.: `{"variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732}`
 
 Refer to the [Ubidots Documentation](https://ubidots.com/docs/api/mqtt.html) for more information about the functionality of the MQTT broker.
 
@@ -76,7 +76,7 @@ The message can contain the following properties:
 
 - `msg.payload` (optional) - The values to be published on the given Device. Each key is the label of the variable.
 
-Example of a simple value JSON message:`{"value": 100}`.
+Example of a simple value JSON message:`{"variable": 100}`.
 
 Example of a JSON message providing context data: `{"variable": {"value": 200, "context": {"key1": "value1","key2": "value2"}}}`.
 
