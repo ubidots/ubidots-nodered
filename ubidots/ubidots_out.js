@@ -78,6 +78,7 @@ module.exports = function (RED) {
           values = JSON.stringify(values);
         }
         try {
+          console.log("path to publish", '/v1.6/devices/' + device_label, values)
           client.publish(
             '/v1.6/devices/' + device_label,
             values,

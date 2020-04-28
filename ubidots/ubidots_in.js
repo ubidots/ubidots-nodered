@@ -213,5 +213,6 @@ function getSubscribePaths(config) {
       }
     }
   }
+  console.log("paths", paths);
   return paths;
 }

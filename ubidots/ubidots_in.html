@@ -155,7 +155,7 @@
       <ul>
           <li>
             <p>
-              <b> Account Type: </b>Defaults to "Ubidots" (Paid Account). If you have an education account choose "Ubidots for Education" (STEM account).
+              <b> Account Type: </b>Defaults to “Ubidots”, which is valid for both industrial and stem account type. If you have an educational account, choose “Ubidots for Education”
             </p>
           </li>
           <li>
@@ -200,8 +200,9 @@
             </p>
           </li>
       </ul>
-      <p>The output is a JSON object with the topic as key and the Last Value/data point object as value, e.g.: <pre>{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
-  </p>
+      <p>When using custom topics, the output is a JSON object with the topic as key and the Last Value/data point object as value, e.g.: <pre>{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
+      <p>When using the variable name (with the device label), the output is a JSON object with the variable name as key and the object as value, e.g.: <pre>{"variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
+    </p>
 
   <p>
       Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
