@@ -24,7 +24,7 @@ The node uses the [MQTT](https://github.com/mqttjs/MQTT.j) library to establish 
 
 Double click on the node to configure all the required fields.
 
-*  __Account type:__ Defaults to “Ubidots”, which is valid for both industrial and stem account type. If you have an educational account, choose “Ubidots for Education”
+*  __Account type:__ Defaults to “Ubidots”, which is valid for both Industrial and STEM account type. If you have a STEM account, choose “Ubidots for Education”
 
 *  __Name:__ The Label of the node in the Node-Red workspace. If empty, defaults to: "Ubidots in". This library uses an MQTT implementation, hence, it's neccesary to name this MQTT client. We recommend you to choose a non-easy-to-copy name, to prevent cases where the name crashes between different clients in the broker.
 
@@ -58,7 +58,7 @@ This node is used to publish to an Ubidots [Variable](http://help.ubidots.com/fa
 
 These are the properties you should configure, by double clicking the node:
 
-*  __Account type:__ Defaults to “Ubidots”, which is valid for both industrial and stem account type. If you have an educational account, choose “Ubidots for Education”
+*  __Account type:__ Defaults to “Ubidots”, which is valid for both Industrial and STEM account type. If you have a STEM account, choose “Ubidots for Education”
 
 *  __Name:__ Label of node in Node-Red workspace. If empty, defaults to: "Ubidots out". This library uses an MQTT implementation, hence, it's neccesary to name this MQTT client. We recommend you to choose a non-easy-to-copy name, to prevent cases where the name crashes between different clients in the broker.
 
