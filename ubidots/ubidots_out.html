@@ -51,7 +51,7 @@
   <ul>
     <li>
       <p>
-        <b> Account Type: </b>Defaults to "Ubidots" (Paid Account). If you have an education account choose "Ubidots for Education" (STEM account).
+        <b> Account Type: </b>Defaults to “Ubidots”, which is valid for both Industrial and STEM account type. If you have a STEM account, choose “Ubidots for Education”
       </p>
     </li>
     <li>
@@ -66,7 +66,7 @@
     </li>
     <li>
       <p>
-        <b>Device Label: </b> The name of the Device to which the data will be published. If no Device exists with this label, it will be automatically created. Can be sent dynamically in the message JSON object with the key: "ubidotsDeviceLabel". If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
+        <b>Device Label: </b> The label of the Device to which the data will be published. If no Device exists with this label, it will be automatically created. Can be sent dynamically in the message JSON object with the key: "ubidotsDeviceLabel". If no Device label is sent in the message, it defaults back to the value from the Device Label field. Keep in mind that the Device Label is required.
       <p>
     </li>
     <li>
@@ -79,11 +79,11 @@
 
         <ul>
             <li>
-                <b>msg.payload.ubidotsDeviceLabel</b> (optional) - The name of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the <i>Device Label</i> field in the node settings.
+                <b>msg.payload.ubidotsDeviceLabel</b> (optional) - The label of the Device to which the packet will be published. If no Device Label is sent, it takes the Device Label from the <i>Device Label</i> field in the node settings.
             </li>
             <li>
                 <b>msg.payload</b> (optional) - The values to be published on the given Device. Each key is the label of the variable.
-                <p>Example of a simple value JSON message:<pre>{"value": 100}</pre>
+                <p>Example of a simple value JSON message:<pre>{"variable": 100}</pre>
                 <p>Example of a JSON message providing context data: <pre> {"variable": {"value": 200, "context": {"key1": "value1","key2": "value2"}}}</pre>
                 <p>Example of JSON message with multiple variables: <pre>{"variable_1": {"value": 100, "context": {"key1": "value1", "key2": "value2"}}, "variable_2": {"value": 200, "context": { "key1": "value1", "key2": "value2"}}} </pre>
 
