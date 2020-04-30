@@ -145,7 +145,7 @@
   <p>Subscribes to up to 10 variables or topics from Ubidots and sends them as a message to other nodes.</p>
 
   <p>
-      Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener noreferrer">MQTT</a> library to establish the connection and suscribe to the variable or topic.
+      Uses the <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener noreferrer">MQTT</a> library to establish the connection and suscribe to the Variable or Topic.
   </p>
 
   <p>
@@ -154,24 +154,24 @@
 
       <ul>
           <li>
-            <p>oose “Ubidots for Education”
-              <b> Account Type: </b>Defaults to “Ubidots”, which is valid for both Industrial and STEM account type. If you have a STEM account, ch
+            <p>
+              <b> Account Type: </b>Defaults to “Ubidots”, which is valid for both Industrial and STEM accounts. If you have an Ubidots for Education account, choose "Ubidots for Education".
             </p>
           </li>
           <li>
 
             <p>
-              <b> Name: </b> Label of node in Node-Red workspace. If empty, defaults to :"Ubidots in".
+              <b> Name: </b> Label of node in Node-Red workspace. If empty, defaults to "Ubidots in".
             </p>
           </li>
           <li>
             <p>
-              <b> Token: </b> (required) - Token necessary to authenticate the connection to your Ubidots account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank">Tutorial</a>
+              <b> Token: </b> (Required) - Token necessary to authenticate the connection with your Ubidots account. To obtain your token, login on <a href="https://www.ubidots.com" target:"_blank">ubidots.com</a>, under "My Profile" click on "API Credentials". <a href="https://help.ubidots.com/en/articles/590078-find-your-token-from-your-ubidots-account" target="_blank">Tutorial</a>
             </p>
           </li>
           <li>
             <p>
-              <b>Device label</b> - The label of the Device to which the node subscribes. Please keep in mind that this field is neglected in case custom topics are used.
+              <b>Device Label</b> - The Device Label to which the node subscribes. This field is neglected in case custom Topics are used.
             </p>
           </li>
           <li>
@@ -181,17 +181,17 @@
           </li>
           <li>
             <p>
-              <b>Use Custom Topics: </b> Allows to specify up to 10 custom topics to which the node subscribes to. The topic starts after <code>/v1.6/devices/</code>. <p>A topic has to be in the following format: <code>Device_Label/Variable_Label</code>. Optionally <code>/lv</code> can be added to subscribe to the Last Value only. Topics support wildcard characters: "+" for single level and "#" for multi level.</p>
+              <b>Use Custom Topics: </b> Allows to specify up to 10 custom Topics to which the node subscribes to. The Topic starts after <code>/v1.6/devices/</code>. <p>A Topic has to be in the following format: <code>Device_Label/Variable_Label</code>. Optionally, <code>/lv</code> can be added to subscribe to the Last Value only. Topics support wildcard characters: "+" for single level and "#" for multi level.</p>
             </p>
           </li>
           <li>
             <p>
-              <b>Variable Label: </b> (required) - The name of the Variable the node subscribes to.
+              <b>Variable Label/Topic: </b> (Required) - The Variable Label or Topic the node subscribes to.
             </p>
           </li>
           <li>
             <p>
-              <b>Last Value: </b> By default, the node subscribes to the Last Value of the variable. Uncheck to subscribe to the complete data point object.
+              <b>Last Value: </b> By default, the node subscribes to the Last Value of the variable. Uncheck to subscribe to the complete Dot object.
             </p>
           </li>
           <li>
@@ -200,14 +200,16 @@
             </p>
           </li>
       </ul>
-      <p>When using custom topics, the output is a JSON object with the topic as key and the Last Value/data point object as value, e.g.: <pre>{"device_label/variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
-      <p>When using the variable name (with the device label), the output is a JSON object with the variable name as key and the Last Value/data point object as value, e.g.: <pre>{"variable": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
+      <p>When using Variable Labels with Last values, the output is a JSON object with the Variable Label as key and the Last Value as value, e.g.: <pre>{"variable_label": 100} </pre></p>
+      <p>When using Variable Labels alone, the output is a JSON object with the Variable Label as key and the Last Dot object as value, e.g.: <pre>{"variable_label": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
+      <p>When using custom topics, the output is a JSON object with the Topic as key and the Last Value/Dot object as value, e.g.: <pre>{"device_label/variable_label": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
     </p>
 
   <p>
-      Refer to the <a href="https://ubidots.com/docs/api/mqtt.html" target="_blank">Ubidots documentation</a> for more information about the functionality of the MQTT broker.
+      Refer to the <a href="https://ubidots.com/docs/hw/#mqtt" target="_blank">Ubidots Documentation</a> for more information about the functionality of the MQTT broker.
   </p>
   <hr>
+  <p><b>NOTE: </b>MQTT Quality of Service (QoS) default to 1
   <p>
     <pre>If you get the error: "TypeError: send is not a function", please run <code>npm update node-red</code> and reload Node-Red.</pre>
   </p>
