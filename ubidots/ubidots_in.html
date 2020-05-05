@@ -132,9 +132,9 @@
       <hr>
       <!-- Add Button -->
       <div id="add-button" class="form-row" style="margin-top:10px">
-          <label style="width: calc(30%)" id="ubidots-add-variable-button-label" for="ubidots-add-variable-button">
+          <label class="auto-width" style="margin-right:20px" id="ubidots-add-variable-button-label" for="ubidots-add-variable-button">
           </label>
-          <span  style="width: calc(15%)">
+          <span id="add-button-span" >
          <button class="red-ui-button" id="ubidots-add-variable-button"><i class="fa fa-plus"></i></button>
       </span>
 
@@ -457,7 +457,7 @@
           activeVariables.push(variableIndex);
           $(genericString + variableIndex).show();
           showAddButton();
-        });
+        }) ;
 
         //Select All/Unselect All Button
         $('#select-all-variables-button').on('click', function () {
@@ -545,7 +545,15 @@
 
         function showAddButton() {
           if (inactiveVariables.length > 0) {
-            $('#add-button').show();
+            // $('#add-button').show();
+            document.getElementById("add-button").style.visibility = "visible";
+            document.getElementById("add-button").style.display = "inline";
+            document.getElementById("ubidots-add-variable-button").style.visibility = "visible";
+            document.getElementById("ubidots-add-variable-button").style.display = "inline";
+            document.getElementById("ubidots-add-variable-button-label").style.visibility = "visible";
+            document.getElementById("ubidots-add-variable-button-label").style.display = "inline";
+            document.getElementById("add-button-span").style.visibility = "visible";
+            document.getElementById("add-button-span").style.display = "inline";
           } else {
             $('#add-button').hide();
           }
@@ -633,6 +641,10 @@
     display: flex;
     flex: 1;
     align-items: center;
+  }
+
+  .auto-width{
+    width:auto !important
   }
 
   .form-row__space-between {
