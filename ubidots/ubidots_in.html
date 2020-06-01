@@ -200,7 +200,7 @@
             </p>
           </li>
       </ul>
-      <p>When using Variable Labels with Last values, the output is a JSON object with the Variable Label as key and the Last Value as value, e.g.: <pre>{"variable_label": 100} </pre></p>
+      <p>When using Variable Labels with Last values, the output is a JSON object with the Variable Label as key and the Last Value as value, e.g.: <pre>{"variable_label": {"value":100}} </pre></p>
       <p>When using Variable Labels alone, the output is a JSON object with the Variable Label as key and the Last Dot object as value, e.g.: <pre>{"variable_label": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
       <p>When using custom topics, the output is a JSON object with the Topic as key and the Last Value/Dot object as value, e.g.: <pre>{"device_label/variable_label": {"value": 100, "timestamp": 1583523586668, "context": { "key1": "value1", "key2": "value2"}, "created_at": 1583523586732} </pre></p>
     </p>
