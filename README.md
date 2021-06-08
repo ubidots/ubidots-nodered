@@ -20,7 +20,7 @@ There are two different nodes: One for subscribing (reading) information from Ub
 
 This node (Subscriber) is used to suscribe to one or more (up to 10) Ubidots [Variable(s)](http://help.ubidots.com/faqs-and-troubleshooting/what-are-variables) or custom topics. It will listen to new values and pass it to further nodes in the `msg.payload`.
 
-The node uses the [MQTT](https://github.com/mqttjs/MQTT.j) library to establish the connection and suscribe to the variable or topic.
+The node uses the [MQTT](https://github.com/mqttjs/MQTT.js) library to establish the connection and suscribe to the variable or topic.
 
 Double click on the node to configure all the required fields.
 
