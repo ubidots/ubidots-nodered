@@ -77,18 +77,14 @@ module.exports = function (RED) {
         if (typeof values === 'object') {
           values = JSON.stringify(values);
         }
-        try {
-          client.publish(
-            '/v1.6/devices/' + device_label,
-            values,
-            { qos: 1, retain: false },
-            function () {
-              console.log('Published successfully,');
-            }
-          );
-        } catch (e) {
-          console.log('Published failed: ', e);
-        }
+        client.publish(
+          '/v1.6/devices/' + device_label,
+          values,
+          { qos: 1, retain: false },
+          function () {
+            console.log('Published successfully,');
+          }
+        );
       }
       if (done) {
         done();
