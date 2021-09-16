@@ -90,6 +90,12 @@ module.exports = function (RED) {
         done();
       }
     });
+
+    self.on('close', function () {
+      if (client !== null && client !== undefined) {
+        client.end(true);
+      }
+    });
   }
 
   RED.nodes.registerType('ubidots_out', UbidotsNode);
