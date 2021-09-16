@@ -20,6 +20,10 @@ module.exports = function (RED) {
       'utf8',
       function () { }
     );
+    
+    // Gets flow context and sets the status of the Node to be available at the flow level
+    var flowContext = self.context().flow;
+    flowContext.set("_ubidotsOutStatus", null);
 
     var endpointUrl = ENDPOINT_URLS[config.tier] || ENDPOINT_URLS.business;
     var token = config.token;
@@ -32,29 +36,22 @@ module.exports = function (RED) {
     });
 
     client.on('reconnect', function () {
-      self.status({
-        fill: 'yellow',
-        shape: 'ring',
-        text: 'ubidots.reconnecting'
-      });
+      flowContext.set("_ubidotsOutStatus", false);
+      self.status({fill: 'yellow',shape: 'ring', text: 'Reconnecting'});
     });
 
     client.on('connect', function (connack) {
-      console.log('Ubidots Publisher connected');
-      self.status({ fill: 'green', shape: 'dot', text: 'Connected' });
+      flowContext.set("_ubidotsOutStatus", true);
+      self.status({ fill: 'green', shape: 'dot', text: 'Connected'});
     });
     client.on('disconnect', function (packet) {
-      console.log('Publisher disconnected');
-      self.status({ fill: 'red', shape: 'ring', text: 'Disconnected' });
+      flowContext.set("_ubidotsOutStatus", false);
+      self.status({ fill: 'red', shape: 'ring', text: 'Disconnected'});
     });
 
     client.on('error', function (msg) {
-      console.warn('Publisher: Inside error function, msg: ', msg);
-      self.status({
-        fill: 'red',
-        shape: 'ring',
-        text: 'ubidots.error_connecting'
-      });
+      flowContext.set("_ubidotsOutStatus", false);
+      self.status({fill: 'red', shape: 'ring', text: 'Error connecting'});
     });
 
     self.on('input', function (msg, send, done) {
