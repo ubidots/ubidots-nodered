@@ -74,6 +74,7 @@ module.exports = function (RED) {
         if (typeof values === 'object') {
           values = JSON.stringify(values);
         }
+        if (client.connected) {
           client.publish(
             '/v2.0/devices/' + device_label,
             values,
@@ -82,6 +83,12 @@ module.exports = function (RED) {
               console.log('Published successfully,');
             }
           );
+        } else {
+          flowContext.set("_ubidotsOutStatus", false);
+          self.status({fill: 'red', shape: 'ring', text: 'Disconnected'});
+          msg.payload.ubidotsDeviceLabel = device_label;
+          send(msg);
+        }
       }
       if (done) {
         done();
