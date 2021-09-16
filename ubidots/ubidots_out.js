@@ -18,7 +18,7 @@ module.exports = function (RED) {
     var certificate = fs.readFileSync(
       path.join(__dirname, '../keys/certificate.pem'),
       'utf8',
-      function () {}
+      function () { }
     );
 
     var endpointUrl = ENDPOINT_URLS[config.tier] || ENDPOINT_URLS.business;
