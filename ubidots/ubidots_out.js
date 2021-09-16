@@ -74,14 +74,14 @@ module.exports = function (RED) {
         if (typeof values === 'object') {
           values = JSON.stringify(values);
         }
-        client.publish(
-          '/v1.6/devices/' + device_label,
-          values,
-          { qos: 1, retain: false },
-          function () {
-            console.log('Published successfully,');
-          }
-        );
+          client.publish(
+            '/v2.0/devices/' + device_label,
+            values,
+            { qos: 1, retain: false },
+            function () {
+              console.log('Published successfully,');
+            }
+          );
       }
       if (done) {
         done();
