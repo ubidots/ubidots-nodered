@@ -107,6 +107,9 @@ module.exports = function (RED) {
     });
 
     client.on("message", (topic, message) => {
+      if (!message) {
+        return;
+      }
       let finalObject = defineOutputObject(topic, message, useCustomTopics);
       try {
         this.emit("input", { payload: finalObject });
