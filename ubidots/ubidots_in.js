@@ -107,17 +107,19 @@ module.exports = function (RED) {
     });
 
     client.on("message", (topic, message) => {
-      if (!message) {
-        return;
+        try{
+        let finalObject = defineOutputObject(topic, message, useCustomTopics);
+        try {
+          this.emit("input", { payload: finalObject });
+        } catch (e) {
+          console.log("Error when trying to emit: ", e);
+          this.status({
+            fill: "red", shape: "ring", text: "smithtek.error_connecting",
+          });
+        }
       }
-      let finalObject = defineOutputObject(topic, message, useCustomTopics);
-      try {
-        this.emit("input", { payload: finalObject });
-      } catch (e) {
-        console.log("Error when trying to emit: ", e);
-        this.status({
-          fill: "red", shape: "ring", text: "smithtek.error_connecting",
-        });
+      catch(e){
+        console.log("Empty message", e);
       }
     });
 
