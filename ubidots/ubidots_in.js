@@ -119,7 +119,7 @@ module.exports = function (RED) {
         }
       }
       catch(e){
-        console.log("Empty message", e);
+        console.log("Empty message...");
       }
     });
 
