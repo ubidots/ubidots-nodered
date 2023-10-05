@@ -114,7 +114,7 @@ module.exports = function (RED) {
       } catch (e) {
         console.log("Error when trying to emit: ", e);
         this.status({
-          fill: "red", shape: "ring", text: "smithtek.error_connecting",
+          fill: "red", shape: "ring", text: "ubidots.error_connecting",
         });
       }
     });
