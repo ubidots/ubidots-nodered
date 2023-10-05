@@ -16,6 +16,7 @@ function defineOutputObject(topic, message, useCustomTopics = false) {
 }
 
 function parseOutputObject(topic, variable, message) {
+  if (message.length == 0) { return }
   let finalObject = {};
   if (topic.endsWith('/lv')) {
     finalObject[variable] = { value: JSON.parse(message.toString()) };
