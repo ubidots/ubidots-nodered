@@ -142,9 +142,13 @@ module.exports = function (RED) {
       this.status({ fill: 'red', shape: 'ring', text: 'ubidots.error_connecting' });
     });
 
-    this.on('close', () => {
+    this.on('close', function (done) {
       if (client !== null && client !== undefined) {
-        client.end(true);
+        client.end(false, function () {
+          done();
+        });
+      } else {
+        done();
       }
     });
 
